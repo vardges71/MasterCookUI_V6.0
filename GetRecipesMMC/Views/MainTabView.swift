@@ -9,11 +9,13 @@ import SwiftUI
 
 struct MainTabView: View {
     
+    @EnvironmentObject private var authServices: AuthServices
     @EnvironmentObject private var webServices: WebService
     
     @State private var tabSelected = 0
     @State private var homeBadgeValue: Int?
     @State private var searchResultBadgeValue: Int?
+    @State private var favoritesBadgeValue: Int?
     
     let gradient = LinearGradient(gradient: Gradient(colors: [Color.navbarTint, Color.accentColor]), startPoint: .topLeading, endPoint: .bottomTrailing)
     
@@ -47,11 +49,25 @@ struct MainTabView: View {
                     })
                     .badge ( searchResultBadgeValue ?? 0 )
                 
-                TagListView(tabSelection: $tabSelected)
+                if authServices.authState == .authorised {
+                    FavoriteView(tabSelection: $tabSelected)
+                        .tabItem {
+                            Label("favorites", systemImage: tabSelected == 3 ? "star.fill" : "star") .environment(\.symbolVariants, .none)
+                            
+                        }
+                        .tag(3)
+                        .onChange(of: webServices.favoriteArray.count, { oldValue, newValue in
+                            favoritesBadgeValue = newValue
+                        })
+                        .badge ( favoritesBadgeValue ?? 0 )
+                }
+                
+                SettingsView(tabSelection: $tabSelected)
                     .tabItem {
-                        Label("tags", systemImage: tabSelected == 3 ? "tag.fill" : "tag")
+                        Label("settings", systemImage: tabSelected == 4 ? "gearshape.2.fill" : "gearshape.2")
                             .environment(\.symbolVariants, .none)
-                    } .tag(3)
+                        
+                    } .tag(4)
             }
         }
         .navigationBarTitleTextColor(.accent)

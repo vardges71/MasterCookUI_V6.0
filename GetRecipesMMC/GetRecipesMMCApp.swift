@@ -33,14 +33,19 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct GetRecipesMMCApp: App {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     @StateObject private var homeViewModel = HomeViewModel()
     @StateObject private var webService = WebService()
+    @StateObject private var authServices = AuthServices()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(homeViewModel)
                 .environmentObject(webService)
+                .environmentObject(authServices)
+                .preferredColorScheme(.light)
         }
     }
 }

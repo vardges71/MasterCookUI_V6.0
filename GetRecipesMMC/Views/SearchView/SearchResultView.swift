@@ -10,7 +10,6 @@ import SwiftUI
 struct SearchResultView: View {
     
     @EnvironmentObject private var webService: WebService
-    @EnvironmentObject private var homeViewModel: HomeViewModel
     
     @State private var selectedRecipe: Recipe? = nil
     @Binding var tabSelection: Int

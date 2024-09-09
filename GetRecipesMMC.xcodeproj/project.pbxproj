@@ -21,6 +21,13 @@
 		098F21DE2C8F4F4B00B6F419 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 098F21DD2C8F4F4B00B6F419 /* FirebaseAuth */; };
 		098F21E02C8F4F4B00B6F419 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 098F21DF2C8F4F4B00B6F419 /* FirebaseDatabase */; };
 		098F21E22C8F4F8300B6F419 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 098F21E12C8F4F8300B6F419 /* GoogleService-Info.plist */; };
+		098F21E42C8F573800B6F419 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21E32C8F573800B6F419 /* AuthServices.swift */; };
+		098F21E62C8F57F600B6F419 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21E52C8F57F600B6F419 /* MainView.swift */; };
+		098F21E82C8F583200B6F419 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21E72C8F583200B6F419 /* LoginView.swift */; };
+		098F21EB2C8F58E100B6F419 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21EA2C8F58E000B6F419 /* FavoriteView.swift */; };
+		098F21EE2C8F59AE00B6F419 /* LoginViewAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21ED2C8F59AE00B6F419 /* LoginViewAlerts.swift */; };
+		098F21F02C8F5A4100B6F419 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21EF2C8F5A4100B6F419 /* SettingsView.swift */; };
+		098F21F52C8F780200B6F419 /* FavoritesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21F42C8F780200B6F419 /* FavoritesListView.swift */; };
 		098FC4962C8AA0C800046330 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FC4952C8AA0C800046330 /* MainTabView.swift */; };
 		099407A02C8B7FF900673053 /* testingTag.json in Resources */ = {isa = PBXBuildFile; fileRef = 0994079F2C8B7FF900673053 /* testingTag.json */; };
 		099407A32C8BF54B00673053 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099407A22C8BF54B00673053 /* ContentView.swift */; };
@@ -65,6 +72,14 @@
 		0973BE0A2C4481F10042D183 /* RecipeCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCellView.swift; sourceTree = "<group>"; };
 		0973BE0D2C4482380042D183 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		098F21E12C8F4F8300B6F419 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		098F21E32C8F573800B6F419 /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
+		098F21E52C8F57F600B6F419 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		098F21E72C8F583200B6F419 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		098F21EA2C8F58E000B6F419 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
+		098F21ED2C8F59AE00B6F419 /* LoginViewAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewAlerts.swift; sourceTree = "<group>"; };
+		098F21EF2C8F5A4100B6F419 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		098F21F42C8F780200B6F419 /* FavoritesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListView.swift; sourceTree = "<group>"; };
+		098F21F62C8F808500B6F419 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		098FC4952C8AA0C800046330 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		0994079F2C8B7FF900673053 /* testingTag.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testingTag.json; sourceTree = "<group>"; };
 		099407A22C8BF54B00673053 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -127,6 +142,7 @@
 		0906B4A72C3BADA30001ED27 /* GetRecipesMMC */ = {
 			isa = PBXGroup;
 			children = (
+				098F21F62C8F808500B6F419 /* Info.plist */,
 				0906B4A82C3BADA30001ED27 /* GetRecipesMMCApp.swift */,
 				0994F05E2C3CC5F3000B89A6 /* testing.json */,
 				09B5466D2C857C5E0080EB4F /* testing1.json */,
@@ -137,8 +153,6 @@
 				09B5468D2C86E2570080EB4F /* ViewModels */,
 				09B5468A2C86D27C0080EB4F /* Model */,
 				09B5466A2C83EE680080EB4F /* Views */,
-				0973BE092C4481F00042D183 /* Divider.swift */,
-				091577C92C571AF6007A434A /* RatingView.swift */,
 				09B546692C83EE540080EB4F /* Services */,
 				0906B4AC2C3BADA50001ED27 /* Assets.xcassets */,
 				098F21E12C8F4F8300B6F419 /* GoogleService-Info.plist */,
@@ -153,6 +167,31 @@
 				0906B4AF2C3BADA50001ED27 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		098F21E92C8F585E00B6F419 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				098F21E72C8F583200B6F419 /* LoginView.swift */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
+		098F21EC2C8F58F100B6F419 /* FavoriteView */ = {
+			isa = PBXGroup;
+			children = (
+				098F21EA2C8F58E000B6F419 /* FavoriteView.swift */,
+				098F21F42C8F780200B6F419 /* FavoritesListView.swift */,
+			);
+			path = FavoriteView;
+			sourceTree = "<group>";
+		};
+		098F21F12C8F5A5300B6F419 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				098F21EF2C8F5A4100B6F419 /* SettingsView.swift */,
+			);
+			path = SettingsView;
 			sourceTree = "<group>";
 		};
 		099407A12C8BF47D00673053 /* HomeView */ = {
@@ -186,6 +225,7 @@
 				0906B4B82C3BAE4C0001ED27 /* WebService.swift */,
 				0906B4BA2C3BAEE40001ED27 /* APIError.swift */,
 				0973BE0D2C4482380042D183 /* Utility.swift */,
+				098F21E32C8F573800B6F419 /* AuthServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -193,12 +233,18 @@
 		09B5466A2C83EE680080EB4F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				098F21E52C8F57F600B6F419 /* MainView.swift */,
 				099407A22C8BF54B00673053 /* ContentView.swift */,
 				098FC4952C8AA0C800046330 /* MainTabView.swift */,
 				0973BE0A2C4481F10042D183 /* RecipeCellView.swift */,
+				091577C92C571AF6007A434A /* RatingView.swift */,
 				09B546772C8599F70080EB4F /* TagListView.swift */,
-				099407A42C8BFC8900673053 /* SearchView */,
+				0973BE092C4481F00042D183 /* Divider.swift */,
+				098F21E92C8F585E00B6F419 /* LoginView */,
 				099407A12C8BF47D00673053 /* HomeView */,
+				099407A42C8BFC8900673053 /* SearchView */,
+				098F21EC2C8F58F100B6F419 /* FavoriteView */,
+				098F21F12C8F5A5300B6F419 /* SettingsView */,
 				09B546812C859B820080EB4F /* SingleRecipe */,
 			);
 			path = Views;
@@ -223,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				0906B4B62C3BAE270001ED27 /* Model.swift */,
+				098F21ED2C8F59AE00B6F419 /* LoginViewAlerts.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -322,16 +369,22 @@
 				098FC4962C8AA0C800046330 /* MainTabView.swift in Sources */,
 				0906B4B72C3BAE270001ED27 /* Model.swift in Sources */,
 				099407B42C8D516F00673053 /* ClearButtonView.swift in Sources */,
+				098F21E42C8F573800B6F419 /* AuthServices.swift in Sources */,
 				09B546852C859B820080EB4F /* SingleRecipeToolBar.swift in Sources */,
 				09B546882C859B820080EB4F /* ToolBarPlayButton.swift in Sources */,
+				098F21F02C8F5A4100B6F419 /* SettingsView.swift in Sources */,
 				099407A62C8BFDE700673053 /* SearchView.swift in Sources */,
+				098F21E62C8F57F600B6F419 /* MainView.swift in Sources */,
 				09B546762C8585EE0080EB4F /* RecipeCardView.swift in Sources */,
 				099407B02C8CB95F00673053 /* CuisineScrollView.swift in Sources */,
+				098F21E82C8F583200B6F419 /* LoginView.swift in Sources */,
 				09B546822C859B820080EB4F /* DescriptionView.swift in Sources */,
 				0906B4AB2C3BADA30001ED27 /* SearchResultView.swift in Sources */,
 				09B546782C8599F70080EB4F /* TagListView.swift in Sources */,
 				0906B4B92C3BAE4C0001ED27 /* WebService.swift in Sources */,
+				098F21EE2C8F59AE00B6F419 /* LoginViewAlerts.swift in Sources */,
 				099407AE2C8C0AB700673053 /* MealScrollView.swift in Sources */,
+				098F21F52C8F780200B6F419 /* FavoritesListView.swift in Sources */,
 				09B546742C8583E50080EB4F /* HomeView.swift in Sources */,
 				091577CA2C571AF6007A434A /* RatingView.swift in Sources */,
 				0973BE0C2C4481F10042D183 /* RecipeCellView.swift in Sources */,
@@ -339,6 +392,7 @@
 				09B546842C859B820080EB4F /* RecipeVideoPlayerView.swift in Sources */,
 				0973BE0E2C4482380042D183 /* Utility.swift in Sources */,
 				0973BE0B2C4481F10042D183 /* Divider.swift in Sources */,
+				098F21EB2C8F58E100B6F419 /* FavoriteView.swift in Sources */,
 				0906B4BB2C3BAEE40001ED27 /* APIError.swift in Sources */,
 				099407A32C8BF54B00673053 /* ContentView.swift in Sources */,
 				09B5468C2C86D29F0080EB4F /* HomeViewModel.swift in Sources */,
@@ -488,11 +542,11 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = D2C435SLPG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GetRecipesMMC/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MasterCook;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -526,11 +580,11 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = D2C435SLPG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GetRecipesMMC/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MasterCook;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
