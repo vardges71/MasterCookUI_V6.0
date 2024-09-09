@@ -1,0 +1,42 @@
+//
+//  ClearButtonView.swift
+//  GetRecipesMMC
+//
+//  Created by Vardges Gasparyan on 2024-09-07.
+//
+
+import SwiftUI
+
+struct ClearButtonView: View {
+    
+    @EnvironmentObject private var webService: WebService
+    @EnvironmentObject private var homeViewModel: HomeViewModel
+    
+    var body: some View {
+        
+        Button {
+
+            clearIngredients()
+            print("Ingredient Array count: \(webService.ingredients.count)")
+            
+        } label: {
+            Label("clear", systemImage: "trash")
+                .frame(maxWidth: .infinity, maxHeight: 44, alignment: .center)
+                .background(.yellowbutton)
+                .foregroundStyle(Color.accentColor)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5.0).stroke(Color.accentColor, lineWidth: 2)
+                )
+        }
+    }
+    
+    func clearIngredients() {
+        
+        webService.ingredients.removeAll()
+        webService.tag.removeAll()
+    }
+}
+
+#Preview {
+    ClearButtonView()
+}
