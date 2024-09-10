@@ -41,6 +41,9 @@
 		098F22142C90233A00B6F419 /* AboutTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F22132C90233A00B6F419 /* AboutTextView.swift */; };
 		098F22162C9023C100B6F419 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F22152C9023C100B6F419 /* PrivacyView.swift */; };
 		098F22182C90242100B6F419 /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F22172C90242100B6F419 /* PrivacyViewModel.swift */; };
+		098F221A2C90DAC800B6F419 /* LogOutButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F22192C90DAC800B6F419 /* LogOutButtonView.swift */; };
+		098F221C2C90DB0800B6F419 /* SettingsLoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F221B2C90DB0800B6F419 /* SettingsLoginButtonView.swift */; };
+		098F221E2C90DB2F00B6F419 /* DeleteAccountButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F221D2C90DB2F00B6F419 /* DeleteAccountButtonView.swift */; };
 		098FC4962C8AA0C800046330 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FC4952C8AA0C800046330 /* MainTabView.swift */; };
 		099407A02C8B7FF900673053 /* testingTag.json in Resources */ = {isa = PBXBuildFile; fileRef = 0994079F2C8B7FF900673053 /* testingTag.json */; };
 		099407A32C8BF54B00673053 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099407A22C8BF54B00673053 /* ContentView.swift */; };
@@ -104,6 +107,9 @@
 		098F22132C90233A00B6F419 /* AboutTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTextView.swift; sourceTree = "<group>"; };
 		098F22152C9023C100B6F419 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		098F22172C90242100B6F419 /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
+		098F22192C90DAC800B6F419 /* LogOutButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutButtonView.swift; sourceTree = "<group>"; };
+		098F221B2C90DB0800B6F419 /* SettingsLoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLoginButtonView.swift; sourceTree = "<group>"; };
+		098F221D2C90DB2F00B6F419 /* DeleteAccountButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountButtonView.swift; sourceTree = "<group>"; };
 		098FC4952C8AA0C800046330 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		0994079F2C8B7FF900673053 /* testingTag.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testingTag.json; sourceTree = "<group>"; };
 		099407A22C8BF54B00673053 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -218,6 +224,9 @@
 				098F220C2C90183700B6F419 /* SettingsRowView.swift */,
 				098F22132C90233A00B6F419 /* AboutTextView.swift */,
 				098F22152C9023C100B6F419 /* PrivacyView.swift */,
+				098F22192C90DAC800B6F419 /* LogOutButtonView.swift */,
+				098F221B2C90DB0800B6F419 /* SettingsLoginButtonView.swift */,
+				098F221D2C90DB2F00B6F419 /* DeleteAccountButtonView.swift */,
 			);
 			path = SettingsView;
 			sourceTree = "<group>";
@@ -420,6 +429,7 @@
 				098F21E42C8F573800B6F419 /* AuthServices.swift in Sources */,
 				09B546852C859B820080EB4F /* SingleRecipeToolBar.swift in Sources */,
 				09B546882C859B820080EB4F /* ToolBarPlayButton.swift in Sources */,
+				098F221C2C90DB0800B6F419 /* SettingsLoginButtonView.swift in Sources */,
 				098F21F02C8F5A4100B6F419 /* SettingsView.swift in Sources */,
 				099407A62C8BFDE700673053 /* SearchView.swift in Sources */,
 				098F22182C90242100B6F419 /* PrivacyViewModel.swift in Sources */,
@@ -434,6 +444,7 @@
 				098F21EE2C8F59AE00B6F419 /* LoginViewAlerts.swift in Sources */,
 				099407AE2C8C0AB700673053 /* MealScrollView.swift in Sources */,
 				098F21F52C8F780200B6F419 /* FavoritesListView.swift in Sources */,
+				098F221A2C90DAC800B6F419 /* LogOutButtonView.swift in Sources */,
 				098F21F82C8F81C200B6F419 /* EmailTextFieldView.swift in Sources */,
 				09B546742C8583E50080EB4F /* HomeView.swift in Sources */,
 				091577CA2C571AF6007A434A /* RatingView.swift in Sources */,
@@ -455,6 +466,7 @@
 				099407AA2C8C017D00673053 /* SearchTextFieldView.swift in Sources */,
 				09B546832C859B820080EB4F /* NutritionView.swift in Sources */,
 				09B546862C859B820080EB4F /* SingleRecipeView.swift in Sources */,
+				098F221E2C90DB2F00B6F419 /* DeleteAccountButtonView.swift in Sources */,
 				098F220D2C90183700B6F419 /* SettingsRowView.swift in Sources */,
 				098F21FA2C8F81DD00B6F419 /* PasswordTextFieldView.swift in Sources */,
 				099407AC2C8C03A100673053 /* AddButtonView.swift in Sources */,

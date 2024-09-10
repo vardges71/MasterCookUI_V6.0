@@ -151,7 +151,7 @@ class WebService: ObservableObject {
                 return
             }
             
-            print("Data received: \(data.count) bytes")
+//            print("Data received: \(data.count) bytes")
             
             // Decoding the data
             let decoder = JSONDecoder()
@@ -337,83 +337,6 @@ class WebService: ObservableObject {
             print("Error decoding JSON: \(error)")
         }
     }
-    
-    /*
-     func getFavoriteRecipes() async throws -> [Recipe] {
-     //
-     //        let userID = Auth.auth().currentUser?.uid
-     //        ref = Database.database().reference().child("users").child(userID!)
-     //
-     //        ref.observeSingleEvent(of: .value) { (snapshot) in
-     //
-     //            if snapshot.hasChild("favorites") {
-     //
-     //                self.ref.child("favorites").observe(.childAdded) { snapshot, _ in
-     //
-     //                    guard let snapChildren = snapshot.value as? [String: Any] else { return }
-     //
-     //                    let favRecipe = FirebaseRecipe()
-     //
-     //                    for (key, value) in snapChildren {
-     //
-     //                        if key == "recipeID" {
-     //
-     //                            favRecipe.id = value as? String ?? " "
-     //                        }
-     //                        if key == "recipeName" {
-     //
-     //                            favRecipe.name = value as? String ?? " "
-     //                        }
-     //                        if key == "numServings" {
-     //
-     //                            favRecipe.num_servings = value as? Int ?? 0
-     //                        }
-     //                        if key == "recipeInstruction" {
-     //
-     //                            favRecipe.instructions = value as? String ?? " "
-     //                        }
-     //                        if key == "recipeDescription" {
-     //
-     //                            favRecipe.description = value as? String ?? " "
-     //                        }
-     //                        if key == "recipeThumbnailURL" {
-     //
-     //                            favRecipe.thumbnail_url = value as? String ?? " "
-     //                        }
-     //                        if key == "recipeVideoURL" {
-     //
-     //                            favRecipe.video_url = value as? String ?? " "
-     //                        }
-     //
-     //                        if key == "recipeFiber" {
-     //                            favRecipe.fiber = (value as! Int)
-     //                        }
-     //                        if key == "recipeProtein" {
-     //                            favRecipe.protein = (value as! Int)
-     //                        }
-     //                        if key == "recipeFat" {
-     //                            favRecipe.fat = (value as! Int)
-     //                        }
-     //                        if key == "recipeCalories" {
-     //                            favRecipe.calories = (value as! Int)
-     //                        }
-     //                        if key == "recipeSugar" {
-     //                            favRecipe.sugar = (value as! Int)
-     //                        }
-     //                        if key == "recipeCarbohydrates" {
-     //                            favRecipe.carbohydrates = (value as! Int)
-     //                        }
-     //                    }
-     //
-     //                    self.favoriteArray.append(favRecipe)
-     //                }
-     //            }  else {
-     //                self.favoriteDataEmpty.toggle()
-     //            }
-     //        }
-     return favoriteArray
-     }
-     */
     
     func getFavoriteRecipes() async throws {
         

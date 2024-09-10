@@ -74,6 +74,15 @@ struct SingleRecipeView: View {
                         }
                         .frame(width: screenWidth, alignment: .leading)
                     }
+                    .contextMenu {
+                        // Option to copy all instructions on long press
+                        Button(action: {
+                            copyInstructions()
+                        }) {
+                            Text("Copy All Instructions")
+                            Image(systemName: "doc.on.doc") // Clipboard icon
+                        }
+                    }
                 }
                 .foregroundStyle(.white)
                 Spacer()
@@ -108,7 +117,12 @@ struct SingleRecipeView: View {
         .fullScreenCover(isPresented: $showLoginView) { LoginView() }
     }
     
-    
+    func copyInstructions() {
+        
+        let allInstructions = selectedRecipe.instructions.map { $0.displayText }.joined(separator: "\n")
+        UIPasteboard.general.string = allInstructions
+        print("Instructions copied to clipboard: \(allInstructions)")
+    }
 }
 
 //#Preview {

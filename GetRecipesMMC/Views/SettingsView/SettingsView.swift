@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseDatabase
 
 struct SettingsView: View {
     
@@ -13,6 +14,10 @@ struct SettingsView: View {
     
     @Binding var tabSelection: Int
     let title = "Settings"
+    @State private var showLoginView = false
+    @State private var showAlert = false
+    @State private var showDeleteAlert = false
+    
     let appVersionString: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     var currentYear = Date.now.formatted(.dateTime.year())
@@ -60,7 +65,62 @@ struct SettingsView: View {
                         }
                         .backgroundStyle(.settingBack)
                         GroupBox(label: SettingsLabelView(labelText: "Account", labelImage: "person")) {
-                            Divider().padding(.vertical, 5)
+                            if authServices.authState == .authorised {
+                                SettingsRowView(
+                                    name: "",
+                                    buttonLabel: "sign out",
+                                    buttonImageName: "arrow.backward.square",
+                                    buttonAction: {
+                                        self.showAlert.toggle()
+                                    }
+                                )
+                                .alert("Do you really want to sign out?", isPresented: $showAlert) {
+                                    Button("Sign out", role: .destructive, action: {
+                                        self.showLoginView.toggle()
+                                        logOut()
+                                    })
+                                    Button("Cancel", role: .cancel, action: {})
+                                }
+                            } else {
+                                SettingsRowView(
+                                    name: "",
+                                    buttonLabel: "login",
+                                    buttonImageName: "arrow.forward.square",
+                                    buttonAction: {
+                                        self.showLoginView.toggle()
+                                    }
+                                )
+                            }
+                            if authServices.authState == .notAuthorised {
+                                SettingsRowView(
+                                    name: "",
+                                    buttonLabel: "delete account",
+                                    buttonImageName: "trash.square",
+                                    buttonAction: {
+                                        self.showDeleteAlert.toggle()
+                                    }
+                                )
+                                .opacity(0.5)
+                                .disabled(true)
+                            } else {
+                                SettingsRowView(
+                                    name: "",
+                                    buttonLabel: "delete account",
+                                    buttonImageName: "trash.square",
+                                    buttonAction: {
+                                        self.showDeleteAlert.toggle()
+                                    }
+                                )
+                                .alert("Do you really want to delete your account?", isPresented: $showDeleteAlert) {
+                                    Button("Delete", role: .destructive, action: {
+                                        delete()
+                                        DispatchQueue.main.async {
+                                            self.showLoginView.toggle()
+                                        }
+                                    })
+                                    Button("Cancel", role: .cancel, action: {})
+                                }
+                            }
                         }
                         .backgroundStyle(.settingBack)
                     }
@@ -68,17 +128,18 @@ struct SettingsView: View {
                 .padding(20)
             }
             .navigationTitle(title)
+            .fullScreenCover(isPresented: $showLoginView) { LoginView() }
         }
     }
     
     func getMinimumVersion() -> String {
         var deploymentTarget = ""
         if let infoPlist = Bundle.main.infoDictionary {
-          let minimumVersion = infoPlist["MinimumOSVersion"]
-          if let minimumVersion = minimumVersion {
-              print("Minimum version is \(minimumVersion)")
-              deploymentTarget = minimumVersion as! String
-          }
+            let minimumVersion = infoPlist["MinimumOSVersion"]
+            if let minimumVersion = minimumVersion {
+                print("Minimum version is \(minimumVersion)")
+                deploymentTarget = minimumVersion as! String
+            }
         }
         return deploymentTarget
     }
@@ -89,6 +150,17 @@ struct SettingsView: View {
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func delete() {
+        
+        let userID = authServices.uid
+        let db: DatabaseReference!
+        
+        db = Database.database().reference()
+        db.child("users").child(userID).removeValue()
+        
+        authServices.deleteAccount()
     }
 }
 

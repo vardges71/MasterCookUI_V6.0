@@ -12,6 +12,9 @@ struct SettingsRowView: View {
     var content: String? = nil
     var linkLabel: String? = nil
     var linkDestination: String? = nil
+    var buttonLabel: String? = nil
+    var buttonImageName: String? = nil
+    var buttonAction: (() -> Void)? = nil
 
     var body: some View {
       VStack {
@@ -25,10 +28,19 @@ struct SettingsRowView: View {
           } else if (linkLabel != nil && linkDestination != nil) {
             Link(linkLabel!, destination: URL(string: "https://\(linkDestination!)")!)
               Image(systemName: "arrow.up.right.square").foregroundStyle(.tabbarBadge)
-          }
-          else {
-            EmptyView()
-          }
+          } else if let buttonLabel = buttonLabel, let buttonImageName = buttonImageName, let buttonAction = buttonAction {
+              Button(action: buttonAction) {
+                  HStack {
+                      Text(buttonLabel)
+                      Image(systemName: buttonImageName)
+                          .foregroundStyle(.tabbarBadge)
+                  }
+              }
+              .foregroundStyle(.accent)
+              
+          } else {
+                EmptyView()
+            }
         }
       }
     }

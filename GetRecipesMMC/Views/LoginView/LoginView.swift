@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     
     @EnvironmentObject private var authServices: AuthServices
+    @EnvironmentObject private var webService: WebService
     
     @State private var email: String = ""
     @State private var password: String = ""
@@ -62,6 +63,11 @@ struct LoginView: View {
         }
         .fullScreenCover(isPresented: $isShowMainTab) { MainTabView() }
         .alert(isPresented: $showLoginAlert) { getAlert() }
+        .task {
+            webService.recipeArray.removeAll()
+            webService.resultRecipeArray.removeAll()
+            webService.favoriteArray.removeAll()
+        }
     }
     
     func validateFields() {
