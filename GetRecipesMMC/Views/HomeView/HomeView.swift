@@ -15,7 +15,7 @@ struct HomeView: View {
     @State private var selectedRecipe: Recipe? = nil
     @Binding var tabSelection: Int
     
-    let title = "MasterCook"
+    let title = "My MasterCook"
     
     var body: some View {
         NavigationStack {

@@ -29,7 +29,7 @@ struct LoginView: View {
             fullBackground(imageName: "backYellow")
             VStack {
                 Spacer()
-                Image("logoYellow_New")
+                Image("logoYellowsNew")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 210)
