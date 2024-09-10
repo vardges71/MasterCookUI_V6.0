@@ -12,7 +12,7 @@ struct MainView: View {
     @EnvironmentObject private var authServices: AuthServices
 
     var body: some View {
-        
+ 
         Group {
             switch authServices.authState {
                 

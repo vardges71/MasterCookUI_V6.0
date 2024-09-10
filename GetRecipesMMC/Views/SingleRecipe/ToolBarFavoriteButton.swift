@@ -6,174 +6,173 @@
 //
 
 import SwiftUI
-//import FirebaseDatabase
+import FirebaseCore
+import FirebaseAuth
+import FirebaseDatabase
 
 struct ToolBarFavoriteButton: View {
     
-//    @EnvironmentObject private var authServices: AuthServices
-//    @EnvironmentObject private var webServices: WebServices
-//    
-//    let selectedRecipe: Recipe
-//    
-//    let ref = Database.database().reference()
-//    
-//    @State private var isDisabled: Bool = false
-//    @State private var isExist: Bool = false
-//    @State private var isShowDeleteAlert: Bool = false
+    @EnvironmentObject private var authServices: AuthServices
+    @EnvironmentObject private var webService: WebService
+    
+    let selectedRecipe: Recipe
+    
+    @State private var isDisabled: Bool = false
+    @State private var isExist: Bool = false
+    @State private var isShowDeleteAlert: Bool = false
     
     var body: some View {
-        VStack {
+        Button {
             
+            do{
+                isExist.toggle()
+                print("Favorite Button")
+                try add_removeFavorites()
+                
+            } catch {
+                print(error.localizedDescription)
+            }
+        } label: {
+            VStack {
+                Image(systemName: isExist ? "star.fill" : "star")
+                    .environment(\.symbolVariants, .none)
+                Text("favorite")
+                    .font(.caption)
+            }
+            .foregroundStyle(Color.accentColor)
+            .opacity(isDisabled ? 0.5 : 1)
         }
-//        Button {
-//            
-//            do{
-//                isExist.toggle()
-//                print("Favorite Button")
-//                try add_removeFavorites()
-//                
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        } label: {
-//            VStack {
-//                Image(systemName: isExist ? "star.fill" : "star")
-//                    .environment(\.symbolVariants, .none)
-//                Text("favorite")
-//                    .font(.caption)
-//            }
-//            .foregroundStyle(Color.accentColor)
-//            .opacity(isDisabled ? 0.5 : 1)
-//        }
-//        .disabled(isDisabled)
-//        .onAppear {
-//            isUserExist()
-//            checkRecipeExist()
-//        }
-//        .actionSheet(isPresented: $isShowDeleteAlert) {
-//            ActionSheet(
-//                title: Text("Do you really want to remove recipe from your favorites?"),
-//                buttons: [
-//                    
-//                    .destructive(Text("Remove")) {
-//                        deleteFavorite()
-//                        isExist = false
-//                    },
-//                    .cancel(Text("Cancel")) {
-//                        isExist = true
-//                        
-//                    }
-//                ]
-//            )
-//        }
-//    }
-//    
-//    func isUserExist() {
-//        
-//        if authServices.authState == .notAuthorised {
-//            isDisabled = true
-//        } else {
-//            isDisabled = false
-//        }
-//    }
-//    
-//    func add_removeFavorites() throws {
-//        
-//        if isExist {
-//            try addToFavorite()
-//            
-//        } else {
-//            isShowDeleteAlert.toggle()
-//        }
-//    }
-//    
-//    func checkRecipeExist() {
-//        
-//        let userID = authServices.uid
-//        let recipeID = selectedRecipe.id
-//        
-//        if isDisabled == false {
-//            ref.child("users").child(userID).child("favorites").observeSingleEvent(of: .value, with: { (snapshot) in
-//                
-//                if (snapshot.hasChild(recipeID)) {
-//                    isExist = true
-//                    print("FAVORITE EXIST")
-//                } else {
-//                    isExist = false
-//                    print("FAVORITE IS NOT EXIST")
-//                }
-//            })
-//        }
-//    }
-//    
-//    func deleteFavorite() {
-//        
-//        let recipeID = selectedRecipe.id
-//        let userID = authServices.uid
-//
-//            self.ref.child("users").child(userID).child("favorites").observeSingleEvent(of: .value, with: { (snapshot) in
-//
-//                if snapshot.hasChild(recipeID){
-//
-//                    self.ref.child("users").child(userID).child("favorites").child(recipeID).removeValue()
-//                    checkRecipeExist()
-//                }
-//            })
-//    }
-//    
-//    func addToFavorite() throws {
-//        
-//        let recipeID = selectedRecipe.id
-//        let recipeName = selectedRecipe.name
-//        let recipeThumbnailUrl = selectedRecipe.thumbnail_url
-//        let recipeVideoURL = selectedRecipe.video_url
-//        let recipeInstruction = selectedRecipe.instructions
-//        let recipeDescription = selectedRecipe.description
-//        let numServings = selectedRecipe.num_servings ?? 0
-//        
-//        let recipeFiber = selectedRecipe.fiber
-//        let recipeProtein = selectedRecipe.protein
-//        let recipeFat = selectedRecipe.fat
-//        let recipeCalories = selectedRecipe.calories
-//        let recipeSugar = selectedRecipe.sugar
-//        let recipeCarbohydrates = selectedRecipe.carbohydrates
-//        
-//        let userID = authServices.uid
-//        
-//        print(userID)
-//        
-//        do {
-//            ref.child("users").child(userID).child("favorites").observeSingleEvent(of: .value, with: { (snapshot) in
-//                
-//                if (snapshot.hasChild(recipeID)) {
-//                    
-//                    // ALERT
-//                    
-//                } else {
-//                    
-//                    let reference = Database.database().reference(withPath: "users").child(userID).child("favorites").child(recipeID)
-//                    reference.setValue([
-//                        "recipeID": recipeID as Any,
-//                        "recipeName": recipeName as Any,
-//                        "recipeThumbnailURL": recipeThumbnailUrl as Any,
-//                        "recipeVideoURL": recipeVideoURL as Any,
-//                        "recipeInstruction": recipeInstruction as Any,
-//                        "recipeDescription": recipeDescription as Any,
-//                        "numServings": numServings as Any,
-//                        "recipeFiber": recipeFiber as Any,
-//                        "recipeProtein": recipeProtein as Any,
-//                        "recipeFat": recipeFat as Any,
-//                        "recipeCalories": recipeCalories as Any,
-//                        "recipeSugar": recipeSugar as Any,
-//                        "recipeCarbohydrates": recipeCarbohydrates as Any
-//                        
-//                    ])
-//                }
-//            })
-//        }
+        .disabled(isDisabled)
+        .onAppear {
+            isUserExist()
+            checkRecipeExist()
+        }
+        .actionSheet(isPresented: $isShowDeleteAlert) {
+            ActionSheet(
+                title: Text("Do you really want to remove recipe from your favorites?"),
+                buttons: [
+                    
+                    .destructive(Text("Remove")) {
+                        deleteFavorite()
+                        isExist = false
+                    },
+                    .cancel(Text("Cancel")) {
+                        isExist = true
+                        
+                    }
+                ]
+            )
+        }
+    }
+    
+    func isUserExist() {
+        
+        if authServices.authState == .notAuthorised {
+            isDisabled = true
+        } else {
+            isDisabled = false
+        }
+    }
+    
+    func add_removeFavorites() throws {
+        
+        if isExist {
+            try addToFavorite()
+            
+        } else {
+            isShowDeleteAlert.toggle()
+        }
+    }
+    
+    func checkRecipeExist() {
+        
+        let userID = authServices.uid
+        let recipeID = String(selectedRecipe.id)
+        
+        if isDisabled == false {
+            let reference: DatabaseReference!
+            reference = Database.database().reference(withPath: "users")
+            reference.child(userID).child("favorites").observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if (snapshot.hasChild(recipeID)) {
+                    isExist = true
+                    print("FAVORITE EXIST")
+                } else {
+                    isExist = false
+                    print("FAVORITE IS NOT EXIST")
+                }
+            })
+        }
+    }
+    
+    func deleteFavorite() {
+        
+        let recipeID = String(selectedRecipe.id)
+        let userID = authServices.uid
+        let reference: DatabaseReference!
+        reference = Database.database().reference(withPath: "users").child(userID)
+        reference.child("favorites").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.hasChild(recipeID){
+                
+                reference.child("favorites").child(recipeID).removeValue()
+                checkRecipeExist()
+            }
+        })
+    }
+    
+    func addToFavorite() throws {
+        
+        Task {
+            do {
+                try saveRecipeToFirebase(recipe: selectedRecipe)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    func recipeToDictionary(recipe: Recipe) -> [String: Any]? {
+        do {
+            
+            let jsonData = try JSONEncoder().encode(recipe)
+            
+            print("Favorite JSON Data: \(jsonData)")
+            if let jsonDictionary = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                print("Favorite JSON Dictionary: \(jsonDictionary)")
+                return jsonDictionary
+            }
+            
+        } catch {
+            print("Error converting recipe to dictionary: \(error.localizedDescription)")
+        }
+        return nil
+    }
+    
+    func saveRecipeToFirebase(recipe: Recipe) throws {
+        
+        let userID = authServices.uid
+        
+        let reference: DatabaseReference!
+        reference = Database.database().reference(withPath: "users").child(userID).child("favorites").child("\(recipe.id)")
+        
+        if let recipeDictionary = recipeToDictionary(recipe: recipe) {
+            
+            reference.setValue(recipeDictionary) { (error, ref) in
+                
+                if let error = error {
+                    print("Error saving recipe to Firebase: \(error.localizedDescription)")
+                } else {
+                    print("Recipe saved successfully to Firebase.")
+                }
+            }
+        } else {
+            print("Failed to convert Recipe to dictionary.")
+        }
     }
 }
 
 //#Preview {
 //    ToolBarFavoriteButton(selectedRecipe: Recipe())
 //}
+

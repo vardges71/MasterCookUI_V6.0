@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseCore
 
 enum AuthStates {
     
@@ -30,7 +31,7 @@ class AuthServices: ObservableObject {
     
     func setupAuthListener() {
         
-        Auth.auth().addStateDidChangeListener { _, user in
+        let _ = Auth.auth().addStateDidChangeListener { _, user in
             
             self.authState = user == nil ? .notAuthorised : .authorised
             guard let user = user else { return }

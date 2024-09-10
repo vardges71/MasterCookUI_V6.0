@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseCore
 import FirebaseAuth
 import FirebaseDatabase
 import Combine
@@ -16,20 +17,27 @@ class WebService: ObservableObject {
     
     //  MARK: - PROPERTIES
     
-    var ref: DatabaseReference!
+    let objectWillChange = PassthroughSubject<Void, Never>()
+    
     let s = 50
     
     @Published var ingredient: String = ""
     @Published var ingredients: [String] = []
     
     @Published var tagData: TagData?
-    @Published var tag: [String] = []
+    
+    @Published var tag: [String] = []  {
+        willSet { objectWillChange.send() }
+    }
     
     @Published var recipeData: RecipeData?
-    @Published var recipeArray: [Recipe] = []
-    @Published var resultRecipeArray: [Recipe] = []
     
-    let objectWillChange = PassthroughSubject<Void, Never>()
+    @Published var recipeArray: [Recipe] = [] {
+        willSet { objectWillChange.send() }
+    }
+    @Published var resultRecipeArray: [Recipe] = [] {
+        willSet { objectWillChange.send() }
+    }
     
     @Published var favoriteArray: [Recipe] = [] {
         willSet { objectWillChange.send() }
@@ -96,14 +104,14 @@ class WebService: ObservableObject {
             
             print("TagData results count: \(tagData?.results.count ?? 0)")
             
-            //            for tag in tagData!.results {
-            //                print("Tag Name: \(tag.name)")
-            //                print("Tag Display Name: \(tag.displayName)")
-            //                print("Parent Tag Name: \(String(describing: tag.parentTagName))")
+            //                        for tag in tagData!.results {
+            //                            print("Tag Name: \(tag.name)")
+            //                            print("Tag Display Name: \(tag.displayName)")
+            //                            print("Parent Tag Name: \(String(describing: tag.parentTagName))")
             //
-            //                print("--------------------")
+            //                            print("--------------------")
             //
-            //            }
+            //                        }
         } catch {
             print("Error decoding JSON: \(error)")
         }
@@ -330,114 +338,109 @@ class WebService: ObservableObject {
         }
     }
     
-//    func getFavoriteRecipes() async throws -> [Recipe] {
-//        
-//        let userID = Auth.auth().currentUser?.uid
-//        ref = Database.database().reference().child("users").child(userID!)
-//        
-//        ref.observeSingleEvent(of: .value) { (snapshot) in
-//            
-//            if snapshot.hasChild("favorites") {
-//                
-//                self.ref.child("favorites").observe(.childAdded) { snapshot, _ in
-//                    
-//                    guard let snapChildren = snapshot.value as? [String: Any] else { return }
-//                    
-//                    let favRecipe = Recipe()
-//                    
-//                    for (key, value) in snapChildren {
-//                        
-//                        if key == "recipeID" {
-//                            
-//                            favRecipe.id = value as? String ?? " "
-//                        }
-//                        if key == "recipeName" {
-//                            
-//                            favRecipe.name = value as? String ?? " "
-//                        }
-//                        if key == "numServings" {
-//                            
-//                            favRecipe.num_servings = value as? Int ?? 0
-//                        }
-//                        if key == "recipeInstruction" {
-//                            
-//                            favRecipe.instructions = value as? String ?? " "
-//                        }
-//                        if key == "recipeDescription" {
-//                            
-//                            favRecipe.description = value as? String ?? " "
-//                        }
-//                        if key == "recipeThumbnailURL" {
-//                            
-//                            favRecipe.thumbnail_url = value as? String ?? " "
-//                        }
-//                        if key == "recipeVideoURL" {
-//                            
-//                            favRecipe.video_url = value as? String ?? " "
-//                        }
-//                        
-//                        if key == "recipeFiber" {
-//                            favRecipe.fiber = (value as! Int)
-//                        }
-//                        if key == "recipeProtein" {
-//                            favRecipe.protein = (value as! Int)
-//                        }
-//                        if key == "recipeFat" {
-//                            favRecipe.fat = (value as! Int)
-//                        }
-//                        if key == "recipeCalories" {
-//                            favRecipe.calories = (value as! Int)
-//                        }
-//                        if key == "recipeSugar" {
-//                            favRecipe.sugar = (value as! Int)
-//                        }
-//                        if key == "recipeCarbohydrates" {
-//                            favRecipe.carbohydrates = (value as! Int)
-//                        }
-//                    }
-//                    
-//                    self.favoriteArray.append(favRecipe)
-//                }
-//            }  else {
-//                self.favoriteDataEmpty.toggle()
-//            }
-//        }
-//        return favoriteArray
-//    }
+    /*
+     func getFavoriteRecipes() async throws -> [Recipe] {
+     //
+     //        let userID = Auth.auth().currentUser?.uid
+     //        ref = Database.database().reference().child("users").child(userID!)
+     //
+     //        ref.observeSingleEvent(of: .value) { (snapshot) in
+     //
+     //            if snapshot.hasChild("favorites") {
+     //
+     //                self.ref.child("favorites").observe(.childAdded) { snapshot, _ in
+     //
+     //                    guard let snapChildren = snapshot.value as? [String: Any] else { return }
+     //
+     //                    let favRecipe = FirebaseRecipe()
+     //
+     //                    for (key, value) in snapChildren {
+     //
+     //                        if key == "recipeID" {
+     //
+     //                            favRecipe.id = value as? String ?? " "
+     //                        }
+     //                        if key == "recipeName" {
+     //
+     //                            favRecipe.name = value as? String ?? " "
+     //                        }
+     //                        if key == "numServings" {
+     //
+     //                            favRecipe.num_servings = value as? Int ?? 0
+     //                        }
+     //                        if key == "recipeInstruction" {
+     //
+     //                            favRecipe.instructions = value as? String ?? " "
+     //                        }
+     //                        if key == "recipeDescription" {
+     //
+     //                            favRecipe.description = value as? String ?? " "
+     //                        }
+     //                        if key == "recipeThumbnailURL" {
+     //
+     //                            favRecipe.thumbnail_url = value as? String ?? " "
+     //                        }
+     //                        if key == "recipeVideoURL" {
+     //
+     //                            favRecipe.video_url = value as? String ?? " "
+     //                        }
+     //
+     //                        if key == "recipeFiber" {
+     //                            favRecipe.fiber = (value as! Int)
+     //                        }
+     //                        if key == "recipeProtein" {
+     //                            favRecipe.protein = (value as! Int)
+     //                        }
+     //                        if key == "recipeFat" {
+     //                            favRecipe.fat = (value as! Int)
+     //                        }
+     //                        if key == "recipeCalories" {
+     //                            favRecipe.calories = (value as! Int)
+     //                        }
+     //                        if key == "recipeSugar" {
+     //                            favRecipe.sugar = (value as! Int)
+     //                        }
+     //                        if key == "recipeCarbohydrates" {
+     //                            favRecipe.carbohydrates = (value as! Int)
+     //                        }
+     //                    }
+     //
+     //                    self.favoriteArray.append(favRecipe)
+     //                }
+     //            }  else {
+     //                self.favoriteDataEmpty.toggle()
+     //            }
+     //        }
+     return favoriteArray
+     }
+     */
     
-    func getFavoriteRecipes() async throws -> [Recipe] {
-        return try await withCheckedThrowingContinuation { continuation in
-            guard let userID = Auth.auth().currentUser?.uid else {
-                continuation.resume(throwing: NSError(domain: "AuthError", code: 1, userInfo: [NSLocalizedDescriptionKey: "User ID not found"]))
-                return
-            }
-
-            let ref = Database.database().reference().child("users").child(userID).child("favorites")
-
-            ref.observeSingleEvent(of: .value) { snapshot in
+    func getFavoriteRecipes() async throws {
+        
+        if Auth.auth().currentUser != nil {
+            
+            let userID = Auth.auth().currentUser?.uid
+            print("USER ID: \(String(describing: userID))")
+            let reference: DatabaseReference!
+            reference = Database.database().reference(withPath: "users").child(userID!)
+            
+            reference.child("favorites").observeSingleEvent(of: .value) { snapshot in
+                
                 do {
-                    // Extract the value as a dictionary
-                    guard let value = snapshot.value as? [String: Any] else {
-                        continuation.resume(returning: [])
+                    
+                    guard let snapChildren = snapshot.value as? [String: Any] else {
+                        print("No favorites found or invalid format")
                         return
                     }
-
-                    // Convert snapshot value into Data
-                    let jsonData = try JSONSerialization.data(withJSONObject: value)
-
-                    // Decode into FirebaseRecipe
+                    
+                    let jsonData = try JSONSerialization.data(withJSONObject: snapChildren)
                     let decoder = JSONDecoder()
-
-                    // Decode the data into an array of FirebaseRecipe
-                    let firebaseRecipes = try decoder.decode([FirebaseRecipe].self, from: jsonData)
-
-                    // Convert FirebaseRecipe to Recipe model
-                    let recipes = firebaseRecipes.map { $0.toRecipe() }
-                    self.favoriteArray = recipes
-                    // Return the mapped recipes
-                    continuation.resume(returning: recipes)
+                    let firebaseRecipes = try decoder.decode([String: Recipe].self, from: jsonData)
+                    print("Favorite RECIPES: \(firebaseRecipes)")
+                    self.favoriteArray.append(contentsOf: Array(firebaseRecipes.values))
+                    
                 } catch {
-                    continuation.resume(throwing: error)
+                    print("Favorite recipes fetching error: \(error.localizedDescription)")
                 }
             }
         }
@@ -451,7 +454,6 @@ class WebService: ObservableObject {
             
             Task {
                 do {
-                    
                     try await getFavoriteRecipes()
                     print("You fetch \(favoriteArray.count) recipes")
                     

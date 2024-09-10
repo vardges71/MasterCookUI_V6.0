@@ -59,47 +59,6 @@ struct RecipeData: Codable {
 }
 
 
-struct FirebaseRecipe: Codable {
-    let recipeID: Int
-    let recipeName: String
-    let thumbnailURL: String
-    let videoURL: String?
-    let recipeDescription: String?
-    let numServings: Int?
-    let instructions: [Instruction]
-    let nutrition: Nutrition?
-    let userRatings: UserRatings?
-    
-    // CodingKeys to map Firebase keys to this struct
-    enum CodingKeys: String, CodingKey {
-        case recipeID = "recipe_id"
-        case recipeName = "recipe_name"
-        case thumbnailURL = "thumbnail_url"
-        case videoURL = "video_url"
-        case recipeDescription = "recipe_description"
-        case numServings = "num_servings"
-        case instructions = "recipe_instructions"
-        case nutrition = "recipe_nutrition"
-        case userRatings = "user_ratings"
-    }
-    
-    func toRecipe() -> Recipe {
-        return Recipe(
-            id: recipeID,
-            name: recipeName,
-            thumbnailURL: thumbnailURL,
-            videoURL: videoURL,
-            description: recipeDescription,
-            numServings: numServings,
-            instructions: instructions,
-            nutrition: nutrition,
-            userRatings: userRatings
-        )
-    }
-}
-
-
-
 struct Tag: Codable, Identifiable {
     
     var displayName: String

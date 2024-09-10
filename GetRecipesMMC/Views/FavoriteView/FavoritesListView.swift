@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FavoritesListView: View {
     
-    @EnvironmentObject private var webServices: WebService
+    @EnvironmentObject private var webService: WebService
     
     @State private var shouldAnimate = false
     @State private var isShowAlert = false
@@ -20,14 +20,14 @@ struct FavoritesListView: View {
     var body: some View {
         VStack {
             
-            if webServices.favoriteArray.isEmpty {
+            if webService.favoriteArray.isEmpty {
                 
                 ZStack {
                     ProgressView()
                         .padding()
                         .tint(.white)
                         .foregroundColor(.white)
-                        .onChange(of: webServices.favoriteDataEmpty, { oldValue, newValue in
+                        .onChange(of: webService.favoriteDataEmpty, { oldValue, newValue in
                             isShowAlert = newValue
                             withAnimation {
                                 tabSelected = 1
@@ -36,7 +36,7 @@ struct FavoritesListView: View {
                 }
             } else {
                 
-                List(webServices.favoriteArray, id: \.id) { favorite in
+                List(webService.favoriteArray, id: \.id) { favorite in
                     
                     ZStack(alignment: .leading) {
                         
@@ -51,14 +51,27 @@ struct FavoritesListView: View {
                 .sheet(item: $selectedRecipe,
                        onDismiss: { self.selectedRecipe = nil }) { favorite in
                     SingleRecipeView(selectedRecipe: favorite)
+                        .overlay(
+                            Button(action: {
+                                self.selectedRecipe = nil
+                            }) {
+                                Image(systemName: "xmark.circle")
+                                    .font(.title3)
+                                    .foregroundStyle(.white)
+                                    .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 2, x: 2, y: 2)
+                            }
+                                .padding(.top, 10)
+                                .padding(.trailing, 10)
+                            , alignment: .topTrailing
+                        )
                 }
                        .scrollContentBackground(.hidden)
             }
         } //: VStack
         .task {
-            webServices.favoriteArray.removeAll()
-            DispatchQueue.main.async {
-                webServices.checkFavDataEmpty()
+            webService.favoriteArray.removeAll()
+            do {
+                webService.checkFavDataEmpty()
             }
         }
         .alert(isPresented: $isShowAlert) { Alert(title: Text("NO FAVORITES!!!"), message: Text("You have no favorite recipes"), dismissButton: .default(Text("OK")))}

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CuisineScrollView: View {
     
-    @EnvironmentObject private var homeViewModel: HomeViewModel
     @EnvironmentObject private var webService: WebService
 
     @State private var selectedTag: Tag? = nil

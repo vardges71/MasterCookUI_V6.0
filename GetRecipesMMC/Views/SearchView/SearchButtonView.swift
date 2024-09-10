@@ -32,7 +32,7 @@ Please enter ingredient and tap "+", to add in search list or select meal or cui
         } label: {
             
             Label("search", systemImage: "doc.text.magnifyingglass")
-                .frame(maxWidth: .infinity, maxHeight: 44, alignment: .center)
+                .frame(maxWidth: .infinity, minHeight: 44, alignment: .center)
                 .background(Color.buttonBackground)
                 .foregroundStyle(Color.white)
                 .overlay(

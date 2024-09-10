@@ -21,11 +21,11 @@ struct ClearButtonView: View {
             
         } label: {
             Label("clear", systemImage: "trash")
-                .frame(maxWidth: .infinity, maxHeight: 44, alignment: .center)
+                .frame(maxWidth: .infinity, minHeight: 44, alignment: .center)
                 .background(.yellowbutton)
                 .foregroundStyle(Color.accentColor)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 5.0).stroke(Color.accentColor, lineWidth: 2)
+                    RoundedRectangle(cornerRadius: 5.0).stroke(.accent, lineWidth: 2)
                 )
         }
     }

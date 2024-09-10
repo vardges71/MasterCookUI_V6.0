@@ -73,14 +73,14 @@ struct MainTabView: View {
         .navigationBarTitleTextColor(.accent)
         .accentColor(Color("textColor"))
         .onAppear() {
-            //            favoritesListVM.checkFavDataEmpty()
+            
             UITabBar.appearance().backgroundColor = .navbarTint
             UITabBar.appearance().barTintColor = .navbarTint
             UITabBarItem.appearance().badgeColor = .tabbarBadge
             UITabBar.appearance().unselectedItemTintColor = .navbarUnselectedItem
             
             UINavigationBar.appearance().isTranslucent = true
-//            UINavigationBar.appearance().barTintColor = .navbarTint
+            UINavigationBar.appearance().barTintColor = .navbarTint
         }
     }
 }

@@ -28,7 +28,7 @@ struct SearchView: View {
                         MealScrollView()
                         CuisineScrollView()
                         Spacer()
-                        HStack(spacing: 10) {
+                        HStack(spacing: 20) {
                             ClearButtonView()
                             SearchButtonView(tabSelection: $tabSelection)
                         }
@@ -41,8 +41,10 @@ struct SearchView: View {
             .navigationTitle(title)
         }
         .onAppear {
-            webService.ingredients.removeAll()
-            webService.tag.removeAll()
+            DispatchQueue.main.async {
+                webService.ingredients.removeAll()
+                webService.tag.removeAll()
+            }
         }
     }
 }

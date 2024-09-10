@@ -82,7 +82,7 @@ struct ActionButtonModifier: ViewModifier {
         content
             .frame(width: UIScreen.main.bounds.width - 40, height: 44, alignment: .center)
             .font(.system(size: 17.0))
-            .foregroundColor(Color.white)
+            .foregroundStyle(.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 5.0).stroke(.white, lineWidth: 2)
             )
