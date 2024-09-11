@@ -9,21 +9,16 @@ import SwiftUI
 
 struct SearchTextFieldView: View {
     
-    @EnvironmentObject private var webService: WebService
-    @State private var ingredient: String = ""
+    @EnvironmentObject private var homeViewModel: HomeViewModel
     
     var body: some View {
         VStack {
-            TextField("", text: $webService.ingredient, prompt: Text("ingredient:").foregroundStyle(Color("phTextColor")))
+            TextField("", text: $homeViewModel.ingredient, prompt: Text("ingredient:").foregroundStyle(Color("phTextColor")))
                 .modifier(TextFieldModifier())
                 .textInputAutocapitalization(.never)
                 
             Divider()
         }
-//        .onChange(of: ingredient) { oldValue, newValue in
-//            webService.ingredient = newValue
-//            print(webService.ingredient)
-//        }
     }
 }
 

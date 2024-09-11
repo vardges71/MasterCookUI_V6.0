@@ -35,7 +35,6 @@ struct SearchListView: View {
             .listRowSeparator(.hidden)
         }
         .scrollContentBackground(.hidden)
-        .frame(maxHeight: .infinity)
     }
 }
 

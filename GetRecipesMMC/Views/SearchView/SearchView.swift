@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     
     @EnvironmentObject private var webService: WebService
+    
     private let title = "Search"
     @Binding var tabSelection: Int
     
@@ -41,7 +42,7 @@ struct SearchView: View {
             .navigationTitle(title)
         }
         .onAppear {
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 webService.ingredients.removeAll()
                 webService.tag.removeAll()
             }

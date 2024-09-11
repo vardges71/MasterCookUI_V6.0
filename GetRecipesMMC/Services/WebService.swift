@@ -21,8 +21,9 @@ class WebService: ObservableObject {
     
     let s = 50
     
-    @Published var ingredient: String = ""
-    @Published var ingredients: [String] = []
+    @Published var ingredients: [String] = [] {
+        willSet { objectWillChange.send() }
+    }
     
     @Published var tagData: TagData?
     
@@ -193,7 +194,8 @@ class WebService: ObservableObject {
     func decodeJSON(tags: [String], ingredients: [String]) async throws {
         
         let ing = ingredients.joined(separator: ",")
-        let replasedIngredient = ing.replacingOccurrences(of: ",", with: "%2C%20")
+        var replasedIngredient = ing.replacingOccurrences(of: ",", with: "%2C%20")
+        replasedIngredient = ing.replacingOccurrences(of: " ", with: "%20")
         
         let t = tags.joined(separator: ",")
         let replasedTag = t.replacingOccurrences(of: ",", with: "%2C%20")

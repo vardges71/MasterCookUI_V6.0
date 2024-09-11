@@ -11,6 +11,7 @@ struct MainTabView: View {
     
     @EnvironmentObject private var authServices: AuthServices
     @EnvironmentObject private var webServices: WebService
+    @EnvironmentObject private var homeViewModel: HomeViewModel
     
     @State private var tabSelected = 0
     @State private var homeBadgeValue: Int?

@@ -46,7 +46,6 @@ struct GetRecipesMMCApp: App {
                 .environmentObject(homeViewModel)
                 .environmentObject(webService)
                 .environmentObject(authServices)
-                .preferredColorScheme(.light)
         }
     }
 }

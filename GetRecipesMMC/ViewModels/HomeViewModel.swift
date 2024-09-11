@@ -14,6 +14,8 @@ class HomeViewModel: ObservableObject {
     @Published var greetingText: String = ""
     @Published var tag: String = ""
     
+    @Published var ingredient: String = ""
+    
     @MainActor func mainGreetingText() -> String {
         
         let hour = Calendar.current.component(.hour, from: Date())

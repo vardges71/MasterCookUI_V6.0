@@ -10,6 +10,7 @@ import SwiftUI
 struct AddButtonView: View {
     
     @EnvironmentObject private var webService: WebService
+    @EnvironmentObject private var homeViewModel: HomeViewModel
     @State private var showAlert = false
     
     var body: some View {
@@ -17,7 +18,6 @@ struct AddButtonView: View {
         Button {
             
             ifIngredientTextFieldIsEmpty()
-            print("Ingredient Array count: \(webService.ingredients.count)")
             
         } label: {
             Image(systemName: "plus")
@@ -33,15 +33,17 @@ struct AddButtonView: View {
     
     func ifIngredientTextFieldIsEmpty(){
         
-        if webService.ingredient.isEmpty {
+        if homeViewModel.ingredient.isEmpty {
 
             self.showAlert = true
             
         } else {
             
-            webService.ingredients.append(webService.ingredient)
-            webService.ingredient = ""
-            
+            webService.ingredients.append(homeViewModel.ingredient)
+            print("WebService ingredient: \(webService.ingredients)")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                homeViewModel.ingredient = ""
+            }
         }
     }
 }
