@@ -59,7 +59,7 @@ struct SettingsView: View {
                         ) {
                             SettingsRowView(name: "Version", content: "\(appVersionString) (#\(buildNumber))")
                             SettingsRowView(name: "Compatibility", content: "iOS \(getMinimumVersion())")
-                            SettingsRowView(name: "App Privacy", linkLabel: "Privacy Policy", linkDestination: linkPrivacy)
+                            SettingsRowView(name: "App Privacy", linkLabel: "privacy policy", linkDestination: linkPrivacy)
                             SettingsRowView(name: "Developer", content: "Vardges Gasparyan")
                             SettingsRowView(name: "Copyright", content: "©\(currentYear) MyMasterCook")
                         }

@@ -15,6 +15,7 @@ struct SettingsRowView: View {
     var buttonLabel: String? = nil
     var buttonImageName: String? = nil
     var buttonAction: (() -> Void)? = nil
+    var imageSystemName: String? = nil
 
     var body: some View {
       VStack {
@@ -27,7 +28,7 @@ struct SettingsRowView: View {
               Text(content!).foregroundStyle(.accent)
           } else if (linkLabel != nil && linkDestination != nil) {
             Link(linkLabel!, destination: URL(string: "https://\(linkDestination!)")!)
-              Image(systemName: "arrow.up.right.square").foregroundStyle(.tabbarBadge)
+              Image(systemName: "hand.raised").foregroundStyle(.tabbarBadge)
           } else if let buttonLabel = buttonLabel, let buttonImageName = buttonImageName, let buttonAction = buttonAction {
               Button(action: buttonAction) {
                   HStack {
