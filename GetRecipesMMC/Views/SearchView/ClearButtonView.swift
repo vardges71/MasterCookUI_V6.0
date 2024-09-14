@@ -10,7 +10,6 @@ import SwiftUI
 struct ClearButtonView: View {
     
     @EnvironmentObject private var webService: WebService
-    @EnvironmentObject private var homeViewModel: HomeViewModel
     
     var body: some View {
         

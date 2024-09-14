@@ -33,10 +33,10 @@ class WebService: ObservableObject {
     
     @Published var recipeData: RecipeData?
     
-    @Published var recipeArray: [Recipe] = [] {
+    @Published var recipeHomeArray: [Recipe] = [] {
         willSet { objectWillChange.send() }
     }
-    @Published var resultRecipeArray: [Recipe] = [] {
+    @Published var recipeSearchArray: [Recipe] = [] {
         willSet { objectWillChange.send() }
     }
     
@@ -160,7 +160,7 @@ class WebService: ObservableObject {
             
             // Update tagData (since we're already on the main actor, this is safe)
             self.recipeData = decodedResponse
-            resultRecipeArray = recipeData?.results ?? []
+            recipeHomeArray = recipeData?.results ?? []
             
             // Access the tags
             //                for recipe in recipeData!.results {
@@ -191,7 +191,7 @@ class WebService: ObservableObject {
         }
     }
     
-    func decodeJSON(tags: [String], ingredients: [String]) async throws {
+    func decodeSearchJSON(tags: [String], ingredients: [String]) async throws {
         
         let ing = ingredients.joined(separator: ",")
         var replasedIngredient = ing.replacingOccurrences(of: ",", with: "%2C%20")
@@ -234,7 +234,7 @@ class WebService: ObservableObject {
             
             // Update tagData (since we're already on the main actor, this is safe)
             self.recipeData = decodedResponse
-            resultRecipeArray = recipeData?.results ?? []
+            recipeSearchArray = recipeData?.results ?? []
             
             // Access the tags
             //                for recipe in recipeData!.results {
@@ -266,13 +266,13 @@ class WebService: ObservableObject {
     }
     
     
-    func decodeJSON(from jsonData: Data) {
+    func decodeHomeJSON(from jsonData: Data) {
         
         do {
             let decoder = JSONDecoder()
             recipeData = try decoder.decode(RecipeData.self, from: jsonData)
             
-            recipeArray = recipeData?.results ?? []
+            recipeHomeArray = recipeData?.results ?? []
             // Access the recipes
             /*
              for recipe in recipeData!.results {
@@ -308,7 +308,7 @@ class WebService: ObservableObject {
         do {
             let decoder = JSONDecoder()
             recipeData = try decoder.decode(RecipeData.self, from: jsonData)
-            resultRecipeArray = recipeData?.results ?? []
+            recipeSearchArray = recipeData?.results ?? []
             // Access the recipes
             /*
              for recipe in recipeData!.results {
@@ -345,7 +345,7 @@ class WebService: ObservableObject {
         if Auth.auth().currentUser != nil {
             
             let userID = Auth.auth().currentUser?.uid
-            print("USER ID: \(String(describing: userID))")
+//            print("USER ID: \(String(describing: userID))")
             let reference: DatabaseReference!
             reference = Database.database().reference(withPath: "users").child(userID!)
             
@@ -361,7 +361,7 @@ class WebService: ObservableObject {
                     let jsonData = try JSONSerialization.data(withJSONObject: snapChildren)
                     let decoder = JSONDecoder()
                     let firebaseRecipes = try decoder.decode([String: Recipe].self, from: jsonData)
-                    print("Favorite RECIPES: \(firebaseRecipes)")
+//                    print("Favorite RECIPES: \(firebaseRecipes)")
                     self.favoriteArray.append(contentsOf: Array(firebaseRecipes.values))
                     
                 } catch {
@@ -380,8 +380,9 @@ class WebService: ObservableObject {
             Task {
                 do {
                     try await getFavoriteRecipes()
-                    print("You fetch \(favoriteArray.count) recipes")
-                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        print("You fetch \(self.favoriteArray.count) favorite recipes")
+                    }
                 } catch {
                     print(error.localizedDescription)
                 }

@@ -75,7 +75,7 @@ Please enter ingredient and tap "+", to add in search list or select meal or cui
             }
             
 //            do {
-//                try await webService.decodeJSON(tags: webService.tag, ingredients: webService.ingredients)
+//                try await webService.decodeSearchJSON(tags: webService.tag, ingredients: webService.ingredients)
 //            } catch APIError.invalidURL {
 //                print("Invalid URL")
 //            } catch APIError.invalidResponse {

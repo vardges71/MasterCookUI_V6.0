@@ -29,7 +29,7 @@ struct MainTabView: View {
                         Label("home", systemImage: tabSelected == 0 ? "house.fill" : "house") .environment(\.symbolVariants, .none)
                         
                     } .tag(0)
-                    .onChange(of: webServices.recipeArray.count, { oldValue, newValue in
+                    .onChange(of: webServices.recipeHomeArray.count, { oldValue, newValue in
                         homeBadgeValue = newValue
                     })
                     .badge ( homeBadgeValue ?? 0 )
@@ -45,7 +45,7 @@ struct MainTabView: View {
                         Label("search result", systemImage: tabSelected == 2 ? "book.pages.fill" : "book.pages") .environment(\.symbolVariants, .none)
                         
                     } .tag(2)
-                    .onChange(of: webServices.resultRecipeArray.count, { oldValue, newValue in
+                    .onChange(of: webServices.recipeSearchArray.count, { oldValue, newValue in
                         searchResultBadgeValue = newValue
                     })
                     .badge ( searchResultBadgeValue ?? 0 )

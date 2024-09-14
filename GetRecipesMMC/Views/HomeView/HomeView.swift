@@ -24,7 +24,7 @@ struct HomeView: View {
                 VStack {
                     Spacer()
                     TabView {
-                        ForEach(webService.recipeData?.results ?? [], id: \.id) { recipe in
+                        ForEach(webService.recipeHomeArray, id: \.id) { recipe in
                             RecipeCardView(recipe: recipe)
                                 .onTapGesture { selectedRecipe = recipe }
                         }
@@ -64,7 +64,7 @@ struct HomeView: View {
             if let fileURL = Bundle.main.url(forResource: "testing3", withExtension: "json") {
                 do{
                     let jsonData = try Data(contentsOf: fileURL)
-                    webService.decodeJSON(from: jsonData)
+                    webService.decodeHomeJSON(from: jsonData)
                     
                 } catch {
                     print("Unexpected Error!!!")

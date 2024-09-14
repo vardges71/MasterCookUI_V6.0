@@ -64,8 +64,8 @@ struct LoginView: View {
         .fullScreenCover(isPresented: $isShowMainTab) { MainTabView() }
         .alert(isPresented: $showLoginAlert) { getAlert() }
         .task {
-            webService.recipeArray.removeAll()
-            webService.resultRecipeArray.removeAll()
+            webService.recipeHomeArray.removeAll()
+            webService.recipeSearchArray.removeAll()
             webService.favoriteArray.removeAll()
         }
     }

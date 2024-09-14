@@ -20,10 +20,10 @@ struct SearchResultView: View {
             ZStack {
                 fullBackground(imageName: "backYellow")
                 VStack {
-                    if webService.recipeData?.results.count == 0 {
+                    if webService.recipeSearchArray.count == 0 {
                         ProgressView()
                     } else {
-                        List(webService.recipeData?.results ?? [], id: \.id) { recipe in
+                        List(webService.recipeSearchArray, id: \.id) { recipe in
                             
                             RecipeCellView(recipe: recipe)
                                 .onTapGesture { selectedRecipe = recipe }
@@ -38,7 +38,7 @@ struct SearchResultView: View {
                 }
             }
             .task {
-                if (webService.recipeData?.results.count == 0) {
+                if (webService.recipeSearchArray.count == 0) {
                     load()
                 }
             }
@@ -75,10 +75,10 @@ struct SearchResultView: View {
                 }
             }
 
-//            print("Tags and ingredients from search Result: \(webService.tag), \(webService.ingredients)")
+            print("Tags and ingredients from search Result: \(webService.tag), \(webService.ingredients)")
 //            
 //            do {
-//                try await webService.decodeJSON(tags: webService.tag, ingredients: webService.ingredients)
+//                try await webService.decodeSearchJSON(tags: webService.tag, ingredients: webService.ingredients)
 //            } catch APIError.invalidURL {
 //                print("Invalid URL")
 //            } catch APIError.invalidResponse {
