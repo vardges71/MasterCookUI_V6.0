@@ -22,11 +22,12 @@ struct AddButtonView: View {
         } label: {
             Image(systemName: "plus")
                 .frame(width: 44, height: 44, alignment: .center)
-                .background(.yellowbutton)
+                .background(.white.opacity(0.8))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 5.0).stroke(Color.accentColor, lineWidth: 2)
+                    RoundedRectangle(cornerRadius: 5).stroke(Color.accentColor, lineWidth: 2)
                 )
-                .offset(y: -7)
+                .offset(y: -5)
         }
         .alert(isPresented: self.$showAlert) { Alert(title: Text(" "), message: Text("Please enter ingredient"), dismissButton: .default(Text("OK"))) }
     }

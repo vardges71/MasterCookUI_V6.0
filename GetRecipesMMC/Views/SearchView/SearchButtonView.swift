@@ -35,6 +35,7 @@ Please enter ingredient and tap "+", to add in search list or select meal or cui
                 .frame(maxWidth: .infinity, minHeight: 44, alignment: .center)
                 .background(Color.buttonBackground)
                 .foregroundStyle(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 5.0))
                 .overlay(
                     RoundedRectangle(cornerRadius: 5.0).stroke(.white, lineWidth: 2)
                 )

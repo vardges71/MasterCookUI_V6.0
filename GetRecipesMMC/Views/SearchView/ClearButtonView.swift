@@ -23,6 +23,7 @@ struct ClearButtonView: View {
                 .frame(maxWidth: .infinity, minHeight: 44, alignment: .center)
                 .background(.yellowbutton)
                 .foregroundStyle(Color.accentColor)
+                .clipShape(RoundedRectangle(cornerRadius: 5.0))
                 .overlay(
                     RoundedRectangle(cornerRadius: 5.0).stroke(.accent, lineWidth: 2)
                 )

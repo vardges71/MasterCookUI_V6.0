@@ -23,7 +23,7 @@ struct SearchView: View {
                     VStack {
                         HStack(spacing: 10) {
                             SearchTextFieldView()
-                            Spacer()
+//                            Spacer()
                             AddButtonView()
                         }
                         MealScrollView()
