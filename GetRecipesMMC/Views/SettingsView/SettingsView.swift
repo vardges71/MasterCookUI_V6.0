@@ -49,7 +49,7 @@ struct SettingsView: View {
                         GroupBox(label: SettingsLabelView(labelText: "About", labelImage: "questionmark.square")
                         ) {
                             Divider().padding(.vertical, 5)
-                            Text( LoadAboutText().loadAboutText(file: "About_MyMasterCook") )
+                            Text( LoadAboutText().loadAboutText(file: "AboutMyMasterCook") )
                                 .font(.footnote)
                                 .fontDesign(.rounded)
                                 .foregroundStyle(.accent)

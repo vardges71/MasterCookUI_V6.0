@@ -25,7 +25,6 @@
 		098F21EB2C8F58E100B6F419 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21EA2C8F58E000B6F419 /* FavoriteView.swift */; };
 		098F21EE2C8F59AE00B6F419 /* LoginViewAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21ED2C8F59AE00B6F419 /* LoginViewAlerts.swift */; };
 		098F21F02C8F5A4100B6F419 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21EF2C8F5A4100B6F419 /* SettingsView.swift */; };
-		098F21F52C8F780200B6F419 /* FavoritesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21F42C8F780200B6F419 /* FavoritesListView.swift */; };
 		098F21F82C8F81C200B6F419 /* EmailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21F72C8F81C200B6F419 /* EmailTextFieldView.swift */; };
 		098F21FA2C8F81DD00B6F419 /* PasswordTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21F92C8F81DD00B6F419 /* PasswordTextFieldView.swift */; };
 		098F21FC2C8F820800B6F419 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F21FB2C8F820800B6F419 /* LoginButtonView.swift */; };
@@ -37,7 +36,6 @@
 		098F220B2C900C7D00B6F419 /* SettingsLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F220A2C900C7D00B6F419 /* SettingsLabelView.swift */; };
 		098F220D2C90183700B6F419 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F220C2C90183700B6F419 /* SettingsRowView.swift */; };
 		098F220F2C901A8F00B6F419 /* LoadAboutText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F220E2C901A8F00B6F419 /* LoadAboutText.swift */; };
-		098F22122C901B4F00B6F419 /* About_MyMasterCook.txt in Resources */ = {isa = PBXBuildFile; fileRef = 098F22112C901B4F00B6F419 /* About_MyMasterCook.txt */; };
 		098F22142C90233A00B6F419 /* AboutTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F22132C90233A00B6F419 /* AboutTextView.swift */; };
 		098F22162C9023C100B6F419 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F22152C9023C100B6F419 /* PrivacyView.swift */; };
 		098F22182C90242100B6F419 /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F22172C90242100B6F419 /* PrivacyViewModel.swift */; };
@@ -72,6 +70,7 @@
 		09B5468C2C86D29F0080EB4F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B5468B2C86D29F0080EB4F /* HomeViewModel.swift */; };
 		09B5468F2C86FECB0080EB4F /* testing4.json in Resources */ = {isa = PBXBuildFile; fileRef = 09B5468E2C86FECB0080EB4F /* testing4.json */; };
 		09CF85FE2CA6F42F003FA83C /* SearchViewAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF85FD2CA6F41E003FA83C /* SearchViewAlerts.swift */; };
+		09CF86002CA75E70003FA83C /* AboutMyMasterCook.txt in Resources */ = {isa = PBXBuildFile; fileRef = 09CF85FF2CA75E70003FA83C /* AboutMyMasterCook.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,7 +93,6 @@
 		098F21EA2C8F58E000B6F419 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		098F21ED2C8F59AE00B6F419 /* LoginViewAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewAlerts.swift; sourceTree = "<group>"; };
 		098F21EF2C8F5A4100B6F419 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		098F21F42C8F780200B6F419 /* FavoritesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListView.swift; sourceTree = "<group>"; };
 		098F21F62C8F808500B6F419 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		098F21F72C8F81C200B6F419 /* EmailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextFieldView.swift; sourceTree = "<group>"; };
 		098F21F92C8F81DD00B6F419 /* PasswordTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextFieldView.swift; sourceTree = "<group>"; };
@@ -104,7 +102,6 @@
 		098F220A2C900C7D00B6F419 /* SettingsLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelView.swift; sourceTree = "<group>"; };
 		098F220C2C90183700B6F419 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		098F220E2C901A8F00B6F419 /* LoadAboutText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAboutText.swift; sourceTree = "<group>"; };
-		098F22112C901B4F00B6F419 /* About_MyMasterCook.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = About_MyMasterCook.txt; sourceTree = "<group>"; };
 		098F22132C90233A00B6F419 /* AboutTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTextView.swift; sourceTree = "<group>"; };
 		098F22152C9023C100B6F419 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		098F22172C90242100B6F419 /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
@@ -139,6 +136,7 @@
 		09B5468B2C86D29F0080EB4F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		09B5468E2C86FECB0080EB4F /* testing4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testing4.json; sourceTree = "<group>"; };
 		09CF85FD2CA6F41E003FA83C /* SearchViewAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewAlerts.swift; sourceTree = "<group>"; };
+		09CF85FF2CA75E70003FA83C /* AboutMyMasterCook.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = AboutMyMasterCook.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				098F21EA2C8F58E000B6F419 /* FavoriteView.swift */,
-				098F21F42C8F780200B6F419 /* FavoritesListView.swift */,
 			);
 			path = FavoriteView;
 			sourceTree = "<group>";
@@ -236,7 +233,7 @@
 		098F22102C901AE200B6F419 /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
-				098F22112C901B4F00B6F419 /* About_MyMasterCook.txt */,
+				09CF85FF2CA75E70003FA83C /* AboutMyMasterCook.txt */,
 				0994F05E2C3CC5F3000B89A6 /* testing.json */,
 				09B5466D2C857C5E0080EB4F /* testing1.json */,
 				09B5466F2C857D9A0080EB4F /* testing2.json */,
@@ -403,9 +400,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				098F22122C901B4F00B6F419 /* About_MyMasterCook.txt in Resources */,
 				09B5466E2C857C5E0080EB4F /* testing1.json in Resources */,
 				099407A02C8B7FF900673053 /* testingTag.json in Resources */,
+				09CF86002CA75E70003FA83C /* AboutMyMasterCook.txt in Resources */,
 				098F21E22C8F4F8300B6F419 /* GoogleService-Info.plist in Resources */,
 				09B546712C857D9A0080EB4F /* testing2.json in Resources */,
 				09B546722C857D9A0080EB4F /* testing3.json in Resources */,
@@ -446,7 +443,6 @@
 				0906B4B92C3BAE4C0001ED27 /* WebService.swift in Sources */,
 				098F21EE2C8F59AE00B6F419 /* LoginViewAlerts.swift in Sources */,
 				099407AE2C8C0AB700673053 /* MealScrollView.swift in Sources */,
-				098F21F52C8F780200B6F419 /* FavoritesListView.swift in Sources */,
 				098F221A2C90DAC800B6F419 /* LogOutButtonView.swift in Sources */,
 				098F21F82C8F81C200B6F419 /* EmailTextFieldView.swift in Sources */,
 				09B546742C8583E50080EB4F /* HomeView.swift in Sources */,

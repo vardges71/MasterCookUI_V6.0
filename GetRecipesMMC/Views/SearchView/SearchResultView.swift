@@ -31,7 +31,7 @@ struct SearchResultView: View {
                             .tint(.white)
                             .foregroundColor(.white)
                             .onAppear {
-                                // Check values again when the view reappears
+                                
                                 if !webService.isDecodeSearchJsonCalled {
                                     resultAlertTypes = .emptySearchParameters
                                     showAlert = true
@@ -92,7 +92,7 @@ struct SearchResultView: View {
         case .emptyRequest:
             return Alert(
                 title: Text("Request Empty..."),
-                message: Text("Nothing found for your request"),
+                message: Text("Nothing found from your request"),
                 dismissButton: .default(Text("OK"), action: {
                     withAnimation {
                         tabSelection = 1
@@ -101,7 +101,7 @@ struct SearchResultView: View {
             }))
         case .emptySearchParameters:
             return Alert(
-                title: Text("The ingredients, meal and cuisines is empty"),
+                title: Text("Ingredients, meal or cuisine not selected"),
                 message: Text("""
 Please enter ingredient and tap "+", to add in search list or select meal or cuisine
 """),

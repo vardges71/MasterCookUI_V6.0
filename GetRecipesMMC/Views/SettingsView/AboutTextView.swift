@@ -12,7 +12,7 @@ struct AboutTextView: View {
     var body: some View {
         
         ScrollView {
-            Text( LoadAboutText().loadAboutText(file: "About_MyMasterCook") )
+            Text( LoadAboutText().loadAboutText(file: "AboutMyMasterCook") )
                 .font(.footnote)
         } .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
             .foregroundStyle(Color.accentColor)

@@ -303,7 +303,6 @@ class WebService: @preconcurrency ObservableObject {
         favoriteDataEmpty = false
         
         if favoriteArray.count == 0 {
-            
             Task {
                 do {
                     try await getFavoriteRecipes()
