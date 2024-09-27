@@ -24,6 +24,9 @@ struct RecipeCardView: View {
                         .scaledToFill()
                 } placeholder: {
                     ProgressView()
+                        .padding()
+                        .tint(.white)
+                        .foregroundColor(.white)
                 }
                 VStack {
                     Spacer()
@@ -50,12 +53,3 @@ struct RecipeCardView: View {
 //#Preview {
 //    RecipeCardView()
 //}
-
-
-//RatingView(rating: recipe.userRatings?.score ?? 0.0)
-//    .padding(3)
-//    .background(
-//        Color.white
-//            .clipShape(RoundedRectangle(cornerRadius: 8))
-//            .opacity(0.6)
-//    )

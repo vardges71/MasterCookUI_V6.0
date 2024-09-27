@@ -16,7 +16,7 @@ struct CuisineScrollView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("cuisines:")
-                .font(.caption)
+                .font(.footnote)
                 .foregroundStyle(.accent)
             ScrollView(.horizontal) {
                 LazyHStack {
@@ -28,7 +28,7 @@ struct CuisineScrollView: View {
                             let backgroundColor = isSelected ? Color.accent.opacity(0.8) : Color.white.opacity(0.8)
                             
                             Text(tag.displayName)
-                                .font(.footnote)
+                                .font(.headline)
                                 .onTapGesture {
                                     handleTagSelection(tag)
                                 }

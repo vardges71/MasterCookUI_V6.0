@@ -13,7 +13,7 @@ import Combine
 
 //@Observable
 @MainActor
-class WebService: ObservableObject {
+class WebService: @preconcurrency ObservableObject {
     
     //  MARK: - PROPERTIES
     
@@ -39,11 +39,18 @@ class WebService: ObservableObject {
     @Published var recipeSearchArray: [Recipe] = [] {
         willSet { objectWillChange.send() }
     }
+    @Published var isEmptyRequest: Bool = false {
+        willSet { objectWillChange.send() }
+    }
     
     @Published var favoriteArray: [Recipe] = [] {
         willSet { objectWillChange.send() }
     }
     @Published var favoriteDataEmpty = false {
+        willSet { objectWillChange.send() }
+    }
+    
+    @Published var isDecodeSearchJsonCalled: Bool = false {
         willSet { objectWillChange.send() }
     }
     
@@ -104,25 +111,17 @@ class WebService: ObservableObject {
             tagData = try decoder.decode(TagData.self, from: jsonData)
             
             print("TagData results count: \(tagData?.results.count ?? 0)")
-            
-            //                        for tag in tagData!.results {
-            //                            print("Tag Name: \(tag.name)")
-            //                            print("Tag Display Name: \(tag.displayName)")
-            //                            print("Parent Tag Name: \(String(describing: tag.parentTagName))")
-            //
-            //                            print("--------------------")
-            //
-            //                        }
+
         } catch {
             print("Error decoding JSON: \(error)")
         }
     }
     
-    func decodeHomeJSON(tags: [String]) async throws {
+    func decodeHomeJSON(tags: String) async throws {
         
         let allowedCharacterSet = CharacterSet.urlQueryAllowed
         
-        let t = tags.joined(separator: ",")
+        let t = tags
         var replasedTag = t.replacingOccurrences(of: ",", with: "%2C")
         replasedTag = t.replacingOccurrences(of: " ", with: "%20")
         let tagForURL = replasedTag.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)
@@ -162,30 +161,6 @@ class WebService: ObservableObject {
             self.recipeData = decodedResponse
             recipeHomeArray = recipeData?.results ?? []
             
-            // Access the tags
-            //                for recipe in recipeData!.results {
-            //                    print("Recipe ID: \(recipe.id)")
-            //                    print("Recipe Name: \(recipe.name)")
-            //                    print("Thumbnail URL: \(recipe.thumbnailURL)")
-            //                    print("Video URL: \(recipe.videoURL ?? "video URL")")
-            //                    for instruction in recipe.instructions {
-            //                        print("Instruction: \(instruction.displayText)")
-            //                    }
-            //                    print("Recipe description: \(recipe.description ?? "Description")")
-            //                    if let nutrition = recipe.nutrition {
-            //                        print("Nutrition:")
-            //                        if let calories = nutrition.calories { print("  Calories: \(calories)") }
-            //                        if let carbohydrates = nutrition.carbohydrates { print("  Carbohydrates: \(carbohydrates)g") }
-            //                        if let fat = nutrition.fat { print("  Fat: \(fat)g") }
-            //                        if let fiber = nutrition.fiber { print("  Fiber: \(fiber)g") }
-            //                        if let protein = nutrition.protein { print("  Protein: \(protein)g") }
-            //                        if let sugar = nutrition.sugar { print("  Sugar: \(sugar)g") }
-            //                    }
-            //                    if let userRatings = recipe.userRatings {
-            //                        if userRatings.score != nil { print("User Rating: \((userRatings.score ?? 0) * 5)") }
-            //                    }
-            //                    print("--------------------")
-            
         } catch {
             print("Error decoding JSON: \(error.localizedDescription)")
         }
@@ -222,6 +197,7 @@ class WebService: ObservableObject {
             let (data, response) = try await URLSession.shared.data(for: request)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                
                 print("HTTP Error")
                 return
             }
@@ -235,30 +211,7 @@ class WebService: ObservableObject {
             // Update tagData (since we're already on the main actor, this is safe)
             self.recipeData = decodedResponse
             recipeSearchArray = recipeData?.results ?? []
-            
-            // Access the tags
-            //                for recipe in recipeData!.results {
-            //                    print("Recipe ID: \(recipe.id)")
-            //                    print("Recipe Name: \(recipe.name)")
-            //                    print("Thumbnail URL: \(recipe.thumbnailURL)")
-            //                    print("Video URL: \(recipe.videoURL ?? "video URL")")
-            //                    for instruction in recipe.instructions {
-            //                        print("Instruction: \(instruction.displayText)")
-            //                    }
-            //                    print("Recipe description: \(recipe.description ?? "Description")")
-            //                    if let nutrition = recipe.nutrition {
-            //                        print("Nutrition:")
-            //                        if let calories = nutrition.calories { print("  Calories: \(calories)") }
-            //                        if let carbohydrates = nutrition.carbohydrates { print("  Carbohydrates: \(carbohydrates)g") }
-            //                        if let fat = nutrition.fat { print("  Fat: \(fat)g") }
-            //                        if let fiber = nutrition.fiber { print("  Fiber: \(fiber)g") }
-            //                        if let protein = nutrition.protein { print("  Protein: \(protein)g") }
-            //                        if let sugar = nutrition.sugar { print("  Sugar: \(sugar)g") }
-            //                    }
-            //                    if let userRatings = recipe.userRatings {
-            //                        if userRatings.score != nil { print("User Rating: \((userRatings.score ?? 0) * 5)") }
-            //                    }
-            //                    print("--------------------")
+            if recipeSearchArray.isEmpty { isEmptyRequest = true }
             
         } catch {
             print("Error decoding JSON: \(error.localizedDescription)")
@@ -309,32 +262,6 @@ class WebService: ObservableObject {
             let decoder = JSONDecoder()
             recipeData = try decoder.decode(RecipeData.self, from: jsonData)
             recipeSearchArray = recipeData?.results ?? []
-            // Access the recipes
-            /*
-             for recipe in recipeData!.results {
-             print("Recipe ID: \(recipe.id)")
-             print("Recipe Name: \(recipe.name)")
-             print("Thumbnail URL: \(recipe.thumbnailURL)")
-             print("Video URL: \(recipe.videoURL ?? "video URL")")
-             for instruction in recipe.instructions {
-             print("Instruction: \(instruction.displayText)")
-             }
-             print("Recipe description: \(recipe.description ?? "Description")")
-             if let nutrition = recipe.nutrition {
-             print("Nutrition:")
-             if let calories = nutrition.calories { print("  Calories: \(calories)") }
-             if let carbohydrates = nutrition.carbohydrates { print("  Carbohydrates: \(carbohydrates)g") }
-             if let fat = nutrition.fat { print("  Fat: \(fat)g") }
-             if let fiber = nutrition.fiber { print("  Fiber: \(fiber)g") }
-             if let protein = nutrition.protein { print("  Protein: \(protein)g") }
-             if let sugar = nutrition.sugar { print("  Sugar: \(sugar)g") }
-             }
-             if let userRatings = recipe.userRatings {
-             if userRatings.score != nil { print("User Rating: \((userRatings.score ?? 0) * 5)") }
-             }
-             print("--------------------")
-             }
-             */
         } catch {
             print("Error decoding JSON: \(error)")
         }

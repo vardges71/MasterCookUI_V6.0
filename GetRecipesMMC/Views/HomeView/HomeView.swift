@@ -31,13 +31,18 @@ struct HomeView: View {
                     }
                     .tabViewStyle(PageTabViewStyle())
                     .padding(.vertical, 20)
+                    .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 5, x: -2, y: 2)
                 }
             }
             .navigationTitle(title)
         }
         .task {
-
-            load()
+            
+            print("Current HomeView Tag: \(homeViewModel.tag)")
+            
+            if homeViewModel.tag.isEmpty && (homeViewModel.tag != homeViewModel.getCurrentTag()) {
+                load()
+            }
         }
         .sheet(item: $selectedRecipe,
                onDismiss: { selectedRecipe = nil }) { recipe in
@@ -59,31 +64,32 @@ struct HomeView: View {
     }
     
     func load() {
+        
         Task {
             
-            if let fileURL = Bundle.main.url(forResource: "testing3", withExtension: "json") {
-                do{
-                    let jsonData = try Data(contentsOf: fileURL)
-                    webService.decodeHomeJSON(from: jsonData)
-                    
-                } catch {
-                    print("Unexpected Error!!!")
-                }
-            }
-
-            homeViewModel.mainGreetingText()
-            
-//            do {
-//                try await webService.decodeHomeJSON(tags: homeViewModel.tag)
-//            } catch APIError.invalidURL {
-//                print("Invalid URL")
-//            } catch APIError.invalidResponse {
-//                print("Invalid Response")
-//            } catch APIError.invalidData {
-//                print("Invalid Data")
-//            } catch {
-//                print("Unexpected Error!!!")
+//            if let fileURL = Bundle.main.url(forResource: "testing4", withExtension: "json") {
+//                do{
+//                    let jsonData = try Data(contentsOf: fileURL)
+//                    webService.decodeHomeJSON(from: jsonData)
+//                    
+//                } catch {
+//                    print("Unexpected Error!!!")
+//                }
 //            }
+
+            homeViewModel.getCurrentTag()
+            
+            do {
+                try await webService.decodeHomeJSON(tags: homeViewModel.tag)
+            } catch APIError.invalidURL {
+                print("Invalid URL")
+            } catch APIError.invalidResponse {
+                print("Invalid Response")
+            } catch APIError.invalidData {
+                print("Invalid Data")
+            } catch {
+                print("Unexpected Error!!!")
+            }
         }
     }
     

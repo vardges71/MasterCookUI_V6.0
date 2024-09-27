@@ -13,7 +13,6 @@ struct SearchButtonView: View {
     @EnvironmentObject private var homeViewModel: HomeViewModel
     
     @State private var showAlert = false
-    @State private var isShowResult = false
     
     @Binding var tabSelection: Int
     
@@ -28,6 +27,8 @@ Please enter ingredient and tap "+", to add in search list or select meal or cui
         Button {
             
             ifIngredientIsEmpty()
+            webService.isDecodeSearchJsonCalled = true
+            webService.recipeSearchArray.removeAll()
             
         } label: {
             
@@ -52,12 +53,8 @@ Please enter ingredient and tap "+", to add in search list or select meal or cui
         } else {
             
             load()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-
-                isShowResult.toggle()
-                withAnimation {
-                    tabSelection = 2
-                }
+            withAnimation {
+                tabSelection = 2
             }
         }
     }
@@ -65,27 +62,27 @@ Please enter ingredient and tap "+", to add in search list or select meal or cui
     func load() {
         Task {
             
-            if let fileURL = Bundle.main.url(forResource: "testing", withExtension: "json") {
-                do{
-                    let jsonData = try Data(contentsOf: fileURL)
-                    webService.decodeSearchJSON(from: jsonData)
-                    
-                } catch {
-                    print("Unexpected Error!!!")
-                }
-            }
-            
-//            do {
-//                try await webService.decodeSearchJSON(tags: webService.tag, ingredients: webService.ingredients)
-//            } catch APIError.invalidURL {
-//                print("Invalid URL")
-//            } catch APIError.invalidResponse {
-//                print("Invalid Response")
-//            } catch APIError.invalidData {
-//                print("Invalid Data")
-//            } catch {
-//                print("Unexpected Error!!!")
+//            if let fileURL = Bundle.main.url(forResource: "testing", withExtension: "json") {
+//                do{
+//                    let jsonData = try Data(contentsOf: fileURL)
+//                    webService.decodeSearchJSON(from: jsonData)
+//                    
+//                } catch {
+//                    print("Unexpected Error!!!")
+//                }
 //            }
+            
+            do {
+                try await webService.decodeSearchJSON(tags: webService.tag, ingredients: webService.ingredients)
+            } catch APIError.invalidURL {
+                print("Invalid URL")
+            } catch APIError.invalidResponse {
+                print("Invalid Response")
+            } catch APIError.invalidData {
+                print("Invalid Data")
+            } catch {
+                print("Unexpected Error!!!")
+            }
         }
     }
 }

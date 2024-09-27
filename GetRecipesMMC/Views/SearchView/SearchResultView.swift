@@ -12,6 +12,10 @@ struct SearchResultView: View {
     @EnvironmentObject private var webService: WebService
     
     @State private var selectedRecipe: Recipe? = nil
+    
+    @State private var showAlert: Bool = false
+    @State private var resultAlertTypes: SearchViewAlerts = .success
+    
     @Binding var tabSelection: Int
     
     var body: some View {
@@ -20,8 +24,30 @@ struct SearchResultView: View {
             ZStack {
                 fullBackground(imageName: "backYellow")
                 VStack {
-                    if webService.recipeSearchArray.count == 0 {
+                    if webService.recipeSearchArray.isEmpty {
+                        
                         ProgressView()
+                            .padding()
+                            .tint(.white)
+                            .foregroundColor(.white)
+                            .onAppear {
+                                // Check values again when the view reappears
+                                if !webService.isDecodeSearchJsonCalled {
+                                    resultAlertTypes = .emptySearchParameters
+                                    showAlert = true
+                                }
+                            }
+                            .onReceive(webService.$isEmptyRequest) { newValue in
+                                showAlert = newValue
+                                resultAlertTypes = .emptyRequest
+                                print("New Value: \(newValue),\nWebService isEmptyRequrst: \(webService.isEmptyRequest)")
+                            }
+                            .onReceive(webService.$isDecodeSearchJsonCalled) { newValue in
+                                if !newValue {
+                                    resultAlertTypes = .emptySearchParameters
+                                    showAlert = true
+                                }
+                            }
                     } else {
                         List(webService.recipeSearchArray, id: \.id) { recipe in
                             
@@ -35,11 +61,6 @@ struct SearchResultView: View {
                         .navigationTitle("Search result")
                         .scrollContentBackground(.hidden)
                     }
-                }
-            }
-            .task {
-                if (webService.recipeSearchArray.count == 0) {
-                    load()
                 }
             }
             .sheet(item: $selectedRecipe,
@@ -60,34 +81,44 @@ struct SearchResultView: View {
                     )
             }
         }
+        .alert(isPresented: self.$showAlert) { showResultAlert() }
+        
     }
     
-    func load() {
-        Task {
+    func showResultAlert() -> Alert {
+        
+        switch resultAlertTypes {
             
-            if let fileURL = Bundle.main.url(forResource: "testing", withExtension: "json") {
-                do{
-                    let jsonData = try Data(contentsOf: fileURL)
-                    webService.decodeSearchJSON(from: jsonData)
+        case .emptyRequest:
+            return Alert(
+                title: Text("Request Empty..."),
+                message: Text("Nothing found for your request"),
+                dismissButton: .default(Text("OK"), action: {
+                    withAnimation {
+                        tabSelection = 1
+                    }
+                    showAlert = false
+            }))
+        case .emptySearchParameters:
+            return Alert(
+                title: Text("The ingredients, meal and cuisines is empty"),
+                message: Text("""
+Please enter ingredient and tap "+", to add in search list or select meal or cuisine
+"""),
+                dismissButton: .default(Text("OK"), action: {
                     
-                } catch {
-                    print("Unexpected Error!!!")
+                    withAnimation {
+                        tabSelection = 1
+                    }
+                    showAlert = false
+            }))
+        case .success:
+            return Alert(title: Text("Request Success"), message: Text(""), dismissButton: .default(Text("OK"), action: {
+                withAnimation {
+                    tabSelection = 2
                 }
-            }
-
-            print("Tags and ingredients from search Result: \(webService.tag), \(webService.ingredients)")
-//            
-//            do {
-//                try await webService.decodeSearchJSON(tags: webService.tag, ingredients: webService.ingredients)
-//            } catch APIError.invalidURL {
-//                print("Invalid URL")
-//            } catch APIError.invalidResponse {
-//                print("Invalid Response")
-//            } catch APIError.invalidData {
-//                print("Invalid Data")
-//            } catch {
-//                print("Unexpected Error!!!")
-//            }
+                showAlert = false
+            }))
         }
     }
 }

@@ -13,38 +13,29 @@ class HomeViewModel: ObservableObject {
     
     @Published var greetingText: String = ""
     @Published var tag: String = ""
+    @Published var timeToChangeTag = false
     
     @Published var ingredient: String = ""
     
-    @MainActor func mainGreetingText() -> String {
+    @MainActor func getCurrentTag() -> String {
         
         let hour = Calendar.current.component(.hour, from: Date())
-        formatter.dateFormat = "EEEE, MMM d, yyyy"
         
         switch hour {
             
-        case 06...11:
-            self.greetingText = "Good morning,\nIt's time for breakfast"
+        case 6...11:
             tag = "breakfast"
-            print("HVM tag: \(tag)")
         case 12...15:
-            self.greetingText = "Good afternoon,\nTime for lunch"
             tag = "lunch"
-            print("HVM tag: \(tag)")
         case 16...17:
-            self.greetingText = "Good day,\nWhat about dessert?"
             tag = "desserts"
-            print("HVM tag: \(tag)")
         case 18...21:
-            self.greetingText = "Good evening,\nLet's have dinner"
             tag = "dinner"
-            print("HVM tag: \(tag)")
         default:
-            self.greetingText = "Maybe snacks?"
             tag = "snacks"
-            print("HVM tag: \(tag)")
         }
         
-        return greetingText
+        print("Current Tag: \(tag)")
+        return tag
     }
 }
