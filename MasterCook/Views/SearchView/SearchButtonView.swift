@@ -1,0 +1,80 @@
+//
+//  SearchButtonView.swift
+//  MasterCook
+//
+//  Created by Vardges Gasparyan on 2024-09-28.
+//
+
+import SwiftUI
+
+struct SearchButtonView: View {
+    
+    @EnvironmentObject private var webService: WebService
+    @EnvironmentObject private var homeViewModel: HomeViewModel
+    
+    @State private var showAlert = false
+    
+    @Binding var tabSelection: Int
+    
+    let errorSentence = """
+Please enter ingredient and tap "+", to add in search list or select meal or cuisine
+"""
+    
+    var body: some View {
+        
+        Button {
+            
+            ifIngredientIsEmpty()
+            webService.isDecodeSearchJsonCalled = true
+            webService.recipeSearchArray.removeAll()
+            
+        } label: {
+            
+            Label("search", systemImage: "doc.text.magnifyingglass")
+                .frame(maxWidth: .infinity, minHeight: 44, alignment: .center)
+                .background(Color.buttonBackground)
+                .foregroundStyle(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 5.0))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5.0).stroke(.white, lineWidth: 2)
+                )
+        }
+        .alert(isPresented: self.$showAlert) { Alert(title: Text(" "), message: Text("\(errorSentence)"), dismissButton: .default(Text("OK"))) }
+    }
+    
+    func ifIngredientIsEmpty() {
+        
+        if webService.tag.isEmpty && webService.ingredients.isEmpty {
+            
+            self.showAlert.toggle()
+            
+        } else {
+            
+            load()
+            withAnimation {
+                tabSelection = 2
+            }
+        }
+    }
+    
+    func load() {
+        Task {
+            
+            do {
+                try await webService.decodeSearchJSON(tags: webService.tag, ingredients: webService.ingredients)
+            } catch APIError.invalidURL {
+                print("Invalid URL")
+            } catch APIError.invalidResponse {
+                print("Invalid Response")
+            } catch APIError.invalidData {
+                print("Invalid Data")
+            } catch {
+                print("Unexpected Error!!!")
+            }
+        }
+    }
+}
+
+#Preview {
+    SearchButtonView(tabSelection: .constant(1))
+}
