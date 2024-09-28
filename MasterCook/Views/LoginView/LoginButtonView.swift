@@ -17,7 +17,7 @@ struct LoginButtonView: View {
         Button(action: action) {
             Text(label)
                 .modifier(ActionButtonModifier())
-                .background(Color.buttonBackground)
+                .background(.buttonBackground)
                 .overlay(
                     RoundedRectangle(cornerRadius: 5.0).stroke(.white, lineWidth: 2)
                 )
