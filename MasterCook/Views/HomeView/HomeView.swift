@@ -66,10 +66,9 @@ struct HomeView: View {
     func load() {
         
         Task {
-            homeViewModel.getCurrentTag()
             
             do {
-                try await webService.decodeHomeJSON(tags: homeViewModel.tag)
+                try await webService.decodeHomeJSON(tags: homeViewModel.getCurrentTag())
             } catch APIError.invalidURL {
                 print("Invalid URL")
             } catch APIError.invalidResponse {
