@@ -18,25 +18,26 @@ struct SearchView: View {
         NavigationStack {
             ZStack {
                 fullBackground(imageName: "backYellow")
-                VStack {
+                VStack(spacing: 20) {
                     SearchListView()
+                    HStack(spacing: 10) {
+                        SearchTextFieldView()
+                        Spacer()
+                        AddButtonView()
+                    }
                     VStack {
-                        HStack(spacing: 10) {
-                            SearchTextFieldView()
-//                            Spacer()
-                            AddButtonView()
-                        }
                         MealScrollView()
                         CuisineScrollView()
-                        Spacer()
-                        HStack(spacing: 20) {
-                            ClearButtonView()
-                            SearchButtonView(tabSelection: $tabSelection)
-                        }
-                        Spacer()
+                        DietaryScrollView()
                     }
-                    .padding(20)
+//                    Spacer()
+                    HStack(spacing: 20) {
+                        ClearButtonView()
+                        SearchButtonView(tabSelection: $tabSelection)
+                    }
+                    Spacer()
                 }
+                .padding(20)
                 Spacer()
             }
             .navigationTitle(title)

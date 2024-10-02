@@ -1,13 +1,13 @@
 //
-//  CuisineScrollView.swift
+//  DietaryScrollView.swift
 //  MasterCook
 //
-//  Created by Vardges Gasparyan on 2024-09-28.
+//  Created by Vardges Gasparyan on 2024-10-01.
 //
 
 import SwiftUI
 
-struct CuisineScrollView: View {
+struct DietaryScrollView: View {
     
     @EnvironmentObject private var webService: WebService
 
@@ -15,13 +15,13 @@ struct CuisineScrollView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("cuisines:")
+            Text("dietary:")
                 .font(.footnote)
                 .foregroundStyle(.accent)
             ScrollView(.horizontal) {
                 LazyHStack {
                     ForEach(webService.tagData?.results ?? [], id: \.id) { tag in
-                        if (tag.parentTagName == "cuisine") {
+                        if tag.parentTagName == "dietary" {
                             
                             let isSelected = selectedTag?.id == tag.id
                             let foregroundColor = isSelected ? Color.white : Color.accent
@@ -90,5 +90,5 @@ struct CuisineScrollView: View {
 }
 
 #Preview {
-    CuisineScrollView()
+    DietaryScrollView()
 }
