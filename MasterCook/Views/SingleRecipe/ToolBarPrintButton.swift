@@ -12,15 +12,19 @@ struct ToolBarPrintButton: View {
     let selectedRecipe: Recipe
     
     var body: some View {
-        
         Button {
+            let instructionsText = selectedRecipe.instructions
+                .map { $0.displayText }
+                .joined(separator: "\n")
             
-            printInstruction(text: "\(selectedRecipe.name)\n\nDESCRIPTION:\n\(String(describing: selectedRecipe.description))\n\nINSTRUCTION:\n\(selectedRecipe.instructions)")
+            let printText = "\(selectedRecipe.name)\n\nDESCRIPTION:\n\(selectedRecipe.description ?? "")\n\nINSTRUCTIONS:\n\(instructionsText)"
+            
+            printInstruction(text: printText)
             
         } label: {
             VStack {
                 Image(systemName: "printer")
-                Text("print")
+                Text("Print")
                     .font(.caption)
             }
             .foregroundStyle(Color.accentColor)
@@ -28,7 +32,6 @@ struct ToolBarPrintButton: View {
     }
     
     private func printInstruction(text: String) {
-        
         let textWithNewCarriageReturns = text.replacingOccurrences(of: "\n", with: "<br />")
         let printController = UIPrintInteractionController.shared
         
@@ -47,6 +50,7 @@ struct ToolBarPrintButton: View {
         printController.present(animated: true, completionHandler: nil)
     }
 }
+
 
 //#Preview {
 //    ToolBarPrintButton()

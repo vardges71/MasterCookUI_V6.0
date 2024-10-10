@@ -298,7 +298,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0;
+				MARKETING_VERSION = 6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.vgstudio.MasterCook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -339,7 +339,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0;
+				MARKETING_VERSION = 6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.vgstudio.MasterCook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
