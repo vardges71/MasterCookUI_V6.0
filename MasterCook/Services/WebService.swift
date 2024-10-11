@@ -78,7 +78,7 @@ class WebService: @preconcurrency ObservableObject {
         replasedTag = t.replacingOccurrences(of: " ", with: "%20")
         let tagForURL = replasedTag.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)
         
-        print("URLTags: \(String(describing: tagForURL))")
+        print("URLTags: \(tagForURL ?? "")")
         
         let headers = [
             "x-rapidapi-key": "e25b9b1e84msh0478f04ed91563dp15ca17jsn90ddd01db01f",

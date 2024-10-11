@@ -22,23 +22,28 @@ struct HomeView: View {
             ZStack {
                 fullBackground(imageName: "backYellow")
                 VStack {
-                    Spacer()
-                    TabView {
-                        ForEach(webService.recipeHomeArray, id: \.id) { recipe in
-                            RecipeCardView(recipe: recipe)
-                                .onTapGesture { selectedRecipe = recipe }
+                    if webService.recipeHomeArray.isEmpty {
+                        ProgressView()
+                            .padding()
+                            .tint(.white)
+                            .foregroundColor(.white)
+                    } else {
+                        Spacer()
+                        TabView {
+                            ForEach(webService.recipeHomeArray, id: \.id) { recipe in
+                                RecipeCardView(recipe: recipe)
+                                    .onTapGesture { selectedRecipe = recipe }
+                            }
                         }
+                        .tabViewStyle(PageTabViewStyle())
+                        .padding(.vertical, 20)
+                        .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 5, x: -2, y: 2)
                     }
-                    .tabViewStyle(PageTabViewStyle())
-                    .padding(.vertical, 20)
-                    .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 5, x: -2, y: 2)
                 }
             }
             .navigationTitle(title)
         }
         .task {
-            
-            print("Current HomeView Tag: \(homeViewModel.tag)")
             
             if homeViewModel.tag.isEmpty && (homeViewModel.tag != homeViewModel.getCurrentTag()) {
                 load()
@@ -68,7 +73,7 @@ struct HomeView: View {
         Task {
             
             do {
-                try await webService.decodeHomeJSON(tags: homeViewModel.getCurrentTag())
+                try await webService.decodeHomeJSON(tags: homeViewModel.tag)
             } catch APIError.invalidURL {
                 print("Invalid URL")
             } catch APIError.invalidResponse {
@@ -78,6 +83,7 @@ struct HomeView: View {
             } catch {
                 print("Unexpected Error!!!")
             }
+            print("Current HomeView Tag: \(homeViewModel.tag)")
         }
     }
 }
