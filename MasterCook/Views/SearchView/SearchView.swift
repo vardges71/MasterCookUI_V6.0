@@ -30,7 +30,7 @@ struct SearchView: View {
                         CuisineScrollView()
                         DietaryScrollView()
                     }
-//                    Spacer()
+                    Spacer()
                     HStack(spacing: 20) {
                         ClearButtonView()
                         SearchButtonView(tabSelection: $tabSelection)

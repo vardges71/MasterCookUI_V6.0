@@ -124,6 +124,14 @@ class WebService: @preconcurrency ObservableObject {
         let t = tags.joined(separator: ",")
         let replasedTag = t.replacingOccurrences(of: ",", with: "%2C%20")
         
+        var urlTags = ""
+        
+        if !tags.isEmpty {
+            urlTags = "&tags=\(replasedTag)"
+        } else {
+            print("In Search NO TAGS")
+        }
+        
         
         print("URLTags: \(String(describing: replasedTag))\nURLIngredients: \(String(describing: replasedIngredient))")
         
@@ -132,11 +140,11 @@ class WebService: @preconcurrency ObservableObject {
             "x-rapidapi-host": "tasty.p.rapidapi.com"
         ]
         
-        guard let url = URL(string: "https://tasty.p.rapidapi.com/recipes/list?from=0&size=\(s)&tags=\(replasedTag)&q=\(replasedIngredient)") else {
+        guard let url = URL(string: "https://tasty.p.rapidapi.com/recipes/list?from=0&size=\(s)\(urlTags)&q=\(replasedIngredient)") else {
             print("Invalid URL")
             return
         }
-        
+        print(url)
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20.0)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
