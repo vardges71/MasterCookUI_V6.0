@@ -30,23 +30,14 @@ struct SearchResultView: View {
                             .padding()
                             .tint(.white)
                             .foregroundColor(.white)
-                            .onAppear {
-                                
-                                if !webService.isDecodeSearchJsonCalled {
-                                    resultAlertTypes = .emptySearchParameters
-                                    showAlert = true
-                                }
-                            }
                             .onReceive(webService.$isEmptyRequest) { newValue in
                                 showAlert = newValue
                                 resultAlertTypes = .emptyRequest
                                 print("New Value: \(newValue),\nWebService isEmptyRequrst: \(webService.isEmptyRequest)")
                             }
-                            .onReceive(webService.$isDecodeSearchJsonCalled) { newValue in
-                                if !newValue {
-                                    resultAlertTypes = .emptySearchParameters
-                                    showAlert = true
-                                }
+                            .onReceive(webService.$isDecodingError) { newValue in
+                                showAlert = newValue
+                                resultAlertTypes = .errorDecoding
                             }
                     } else {
                         List(webService.recipeSearchArray, id: \.id) { recipe in
@@ -111,6 +102,19 @@ Please enter ingredient and tap "+", to add in search list or select meal or cui
                         tabSelection = 1
                     }
                     showAlert = false
+            }))
+        case .errorDecoding:
+            return Alert(
+                title: Text("The data could be missing"),
+                message: Text("""
+Please try to add meal or cuisine
+"""),
+                dismissButton: .default(Text("OK"), action: {
+                    
+                withAnimation {
+                    tabSelection = 1
+                }
+                showAlert = false
             }))
         case .success:
             return Alert(title: Text("Request Success"), message: Text(""), dismissButton: .default(Text("OK"), action: {

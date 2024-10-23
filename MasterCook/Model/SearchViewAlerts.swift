@@ -10,5 +10,6 @@ import SwiftUI
 enum SearchViewAlerts {
     case emptyRequest
     case emptySearchParameters
+    case errorDecoding
     case success
 }

@@ -10,6 +10,8 @@ import SwiftUI
 struct SearchView: View {
     
     @EnvironmentObject private var webService: WebService
+    @FocusState private var nameIsFocused: Bool
+
     
     private let title = "Search"
     @Binding var tabSelection: Int
@@ -22,8 +24,9 @@ struct SearchView: View {
                     SearchListView()
                     HStack(spacing: 10) {
                         SearchTextFieldView()
+                            .focused($nameIsFocused)
                         Spacer()
-                        AddButtonView()
+                        AddButtonView(dismissKeyboard: { nameIsFocused = false })
                     }
                     VStack {
                         MealScrollView()
@@ -36,6 +39,9 @@ struct SearchView: View {
                         SearchButtonView(tabSelection: $tabSelection)
                     }
                     Spacer()
+                }
+                .onTapGesture {
+                    nameIsFocused = false  // Dismiss keyboard on tap outside
                 }
                 .padding(20)
                 Spacer()

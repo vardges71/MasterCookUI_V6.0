@@ -13,11 +13,14 @@ struct AddButtonView: View {
     @EnvironmentObject private var homeViewModel: HomeViewModel
     @State private var showAlert = false
     
+    var dismissKeyboard: () -> Void
+    
     var body: some View {
         
         Button {
             
             ifIngredientTextFieldIsEmpty()
+            dismissKeyboard()
             
         } label: {
             Image(systemName: "plus")
@@ -49,6 +52,6 @@ struct AddButtonView: View {
     }
 }
 
-#Preview {
-    AddButtonView()
-}
+//#Preview {
+//    AddButtonView()
+//}

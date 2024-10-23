@@ -39,7 +39,7 @@ Please enter ingredient and tap "+", to add in search list or select meal or cui
                     RoundedRectangle(cornerRadius: 5.0).stroke(.white, lineWidth: 2)
                 )
         }
-        .alert(isPresented: self.$showAlert) { Alert(title: Text(" "), message: Text("\(errorSentence)"), dismissButton: .default(Text("OK"))) }
+        .alert(isPresented: self.$showAlert) { Alert(title: Text("Ingredients, meal or cuisine not selected"), message: Text("\(errorSentence)"), dismissButton: .default(Text("OK"))) }
     }
     
     func ifIngredientIsEmpty() {

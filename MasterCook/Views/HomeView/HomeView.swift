@@ -46,7 +46,7 @@ struct HomeView: View {
         .task {
             
             if homeViewModel.tag.isEmpty && (homeViewModel.tag != homeViewModel.getCurrentTag()) {
-                load()
+//                load()
             }
         }
         .sheet(item: $selectedRecipe,

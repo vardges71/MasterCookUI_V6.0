@@ -53,6 +53,10 @@ class WebService: @preconcurrency ObservableObject {
         willSet { objectWillChange.send() }
     }
     
+    @Published var isDecodingError: Bool = false {
+        willSet { objectWillChange.send() }
+    }
+    
     
     //  MARK: - FUNCTIONS
     
@@ -132,7 +136,6 @@ class WebService: @preconcurrency ObservableObject {
             print("In Search NO TAGS")
         }
         
-        
         print("URLTags: \(String(describing: replasedTag))\nURLIngredients: \(String(describing: replasedIngredient))")
         
         let headers = [
@@ -171,6 +174,7 @@ class WebService: @preconcurrency ObservableObject {
             if recipeSearchArray.isEmpty { isEmptyRequest = true }
             
         } catch {
+            isDecodingError.toggle()
             print("Error decoding JSON: \(error.localizedDescription)")
         }
     }
